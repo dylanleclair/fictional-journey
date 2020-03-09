@@ -1,0 +1,13 @@
+.root{
+	-fx-background-color: #FFFFFF;
+}
+
+.Hbox{
+	-fx-background-color: #89BBDE;
+
+}
+
+.Vbox{
+	-fx-background-color: #FFFFFF;
+	-fx-font-weight: #FFFFFF;
+}
