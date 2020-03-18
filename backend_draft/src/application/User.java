@@ -1,4 +1,4 @@
-package backend_proj;
+package application;
 
 public class User {
 
