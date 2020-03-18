@@ -1,4 +1,4 @@
-package backend_proj;
+package application;
 
 import java.time.*;
 
@@ -20,7 +20,12 @@ public class Booking {
 		
 	}
 	
-	
+	/**
+	 * Still yet to be fully implemented
+	 * TODO: make it functional lmao
+	 * @param doc
+	 * @return
+	 */
 	public ObservableList<Booking> generateTimeSlots(Doctor doc) {
 		
 		ObservableList<Booking> bookings= FXCollections.observableArrayList();
