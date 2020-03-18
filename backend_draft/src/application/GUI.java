@@ -24,15 +24,30 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
-
+/**
+ * The main class for the GUI and it's associated functions
+ * 
+ * 
+ * TODO: - add a section for users to request an account for the hospital, which the admin must then verify
+ * 
+ * @author Dylan Leclair, Mohammed Chama
+ *
+ */
 public class GUI extends Application {
 	
 	String user = "Moe";
     String pw = "password";
     String checkUser, checkPW;
+    
+    Roles selectedRole;
+    
+    
 	@Override
 	public void start(Stage primaryStage) throws Exception {        // the GUI class
+	
 		
+		
+		// we need to add initialization code for the database so users can actually login
 		
 		
 		Stage window = primaryStage;
@@ -47,6 +62,8 @@ public class GUI extends Application {
 		userSelection.setVgap(5);
 		userSelection.setGridLinesVisible(false);
 		Scene scene = new Scene(userSelection,500,250);         
+		
+		
 		
 		GridPane loginPane = new GridPane();
 		loginPane.setStyle("-fx-background-color: #373EBA");
@@ -86,8 +103,32 @@ public class GUI extends Application {
 				checkUser = userName.getText().toString();
 				checkPW = passwordField.getText().toString();
 				if (checkUser.equals(user) && checkPW.equals(pw)) {
-					window.setScene(scene2);
+					
+					
+					// Logic for determining which role was selected & building the proper GUI for them to see
+					
+					GridPane mainpane = new GridPane();
+					intializeBasicPane(mainpane);
+					Scene mainScene = new Scene(mainpane, 700,700);
+					
+					if (selectedRole == Roles.ADMIN) {
+					
+						addAdminElements(mainpane);
+						
+					} else if (selectedRole == Roles.DOCTOR) {
+						
+						addDoctorElements(mainpane);
+						
+					} else if (selectedRole == Roles.PATIENT) {
+						
+						addPatientElements(mainpane);
+						
+					}
+					
+					window.setScene(mainScene);
 				}
+				
+				// error trapping cases
 				else {
 					if (checkUser.contentEquals("")) {
 						AlertBox.display("String", "Please enter a username");
@@ -113,23 +154,35 @@ public class GUI extends Application {
 		loginPane.add(backButton, 0,4);
 
 		
+		
+		// Code for the logic of the intial startup screen
+		
 		Button newButton0  = new Button();
 		newButton0.setText ("Admin");
 		newButton0.setPadding(new Insets(5,5,5,5));
 		newButton0.setPrefSize(100, 20);
-		newButton0.setOnAction(e -> window.setScene(scene1));
+		newButton0.setOnAction(e -> {
+			window.setScene(scene1);
+			selectedRole = Roles.ADMIN;
+		});
 		
 		Button newButton1  = new Button();
-		newButton1.setText ("Staff");
+		newButton1.setText ("Doctor");
 		newButton1.setPadding(new Insets(5,5,5,5));
 		newButton1.setPrefSize(100, 20);
-		newButton1.setOnAction(e -> window.setScene(scene1));
+		newButton1.setOnAction(e -> {
+			window.setScene(scene1);
+			selectedRole = Roles.DOCTOR;
+		});
 		
 		Button newButton2  = new Button();
 		newButton2.setText ("Patient");
 		newButton2.setPadding(new Insets(5,5,5,5));
 		newButton2.setPrefSize(100, 20);
-		newButton2.setOnAction(e -> window.setScene(scene1));
+		newButton2.setOnAction(e -> {
+			window.setScene(scene1);
+			selectedRole = Roles.PATIENT;
+		});
 
 		userSelection.add(newButton0, 0,1);
 		userSelection.add(newButton1, 1,1);
@@ -138,9 +191,74 @@ public class GUI extends Application {
 		window.setScene(scene);
 		window.show();
 		
+		
+		
+		
+		// Scenes for different users
+		
+		
+	
+		
 	}
 	
+	
+	
+	
 
+	/**
+	 * The function responsible for generating a basic scene for the UI that has elements shared by all users. 
+	 * 
+	 * @param gpane
+	 * @return
+	 */
+	public void intializeBasicPane(GridPane gpane) {
+		
+		// UI elements that are added for all scenes
+	
+		gpane.setStyle("-fx-background-color: #373EBA");
+		gpane.setAlignment(Pos.CENTER);
+		gpane.setHgap(5);
+		gpane.setVgap(5);
+		gpane.setGridLinesVisible(false);
+	
+		
+	}
+	
+	/**
+	 * Adds patient specific functionality to the shared UI.
+	 * @param gpane - the shared UI to add additional functionality to
+	 */
+	public void addPatientElements (GridPane gpane) {
+		
+		
+		// add elements to make the scene specific to a patient
+		
+	}
+	
+	
+	/**
+	 * Adds admin specific functionality to the shared UI.
+	 * @param gpane
+	 */
+	public void addAdminElements (GridPane gpane) {
+		
+		// add elements to make scene specific to an admin
+		
+		Button sample = new Button("lol");
+		sample.setAlignment(Pos.CENTER);
+		
+		gpane.add(sample,1,0);
+	}
+
+	
+	/**
+	 * Adds doctor specific functionality to the shared UI.
+	 * @param pane
+	 */
+	public void addDoctorElements (GridPane pane) {
+		
+	}
+	
 	public static void main (String[] args) {
 		
 		

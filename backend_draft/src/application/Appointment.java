@@ -22,8 +22,7 @@ public class Appointment extends Booking {
 		this.patient = patient;
 	}
 
-	
-	
+
 	public void EditBooking() {
 		
 	}
