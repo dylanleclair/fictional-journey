@@ -1,5 +1,8 @@
 package application;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,30 +12,47 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Doctor extends Staff {
+
+  public class Doctor extends User {
 
 	// this should take in a list of arrays w/ length 2 (basically a tuple) from 0 to 23 for every hour in a day. 
 	int[][] appointmentHours;
 	ObservableList<TimeSlot> openAppointments;
 	Department department;
-	
-	
-	
-;	public Doctor(int[][] apptHours, Department dept) {
+	public ArrayList<Booking> todo; // will contain a doctors scheduled appointments / meetings for a day????? Weeks? IDK? 
+    
+    
+    
+  // constructors - update these
+	public Doctor(String name, String email, String phone) {
+		super(name, email, phone);
+		this.appointmentHours = new ArrayList<int[]>(); 
+
+  public Doctor(int[][] apptHours, Department dept) {
 		
 		appointmentHours = apptHours;
 		department = dept;
 		openAppointments = generateTimeSlots(this);
+
 	}
 	
+
 	
-	// can split this into different parts
-	public ArrayList<Booking> todo; // will contain a doctors scheduled appointments / meetings for a day????? Weeks? IDK? 
-	
+	public ArrayList<int[]> getAppointmentHours() {
+		return appointmentHours;
+	}
+
+	/**
+	 * Set the appointment hours of a doctor. The GUI implementation should find a way to parse data into this format. 
+	 * Format is a set of tuples where each tuple is a range from 1 hour to the next, where the hours are a number from 0 to 23.
+	 * @param appointmentHours
+	 */
+	public void setAppointmentHours(ArrayList<int[]> appointmentHours) {
+		this.appointmentHours = appointmentHours;
+	}
 
 	
 	
@@ -63,7 +83,7 @@ public class Doctor extends Staff {
 		
 	}
 	
-	
+
 	/**
 	 * Get the meetings that the doctor has for a day
 	 * TODO: Add logic for different days or make a separate function for the calendar view

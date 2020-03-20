@@ -9,8 +9,7 @@ public class Booking {
 
 	
 	// All appointments are 25 min long, start at the top of an hour
-	
-	
+  
 	protected LocalDateTime startTime; // the date and time of the appointment
 	protected LocalDateTime endTime;
 	protected Location location; 
@@ -23,14 +22,11 @@ public class Booking {
 		this.startTime = startTime;
 		this.endTime = startTime.plusMinutes(25);
 		this.location = location;
-		
+
 		
 	}
 	
 
-	
-
-	
 	
 	
 }

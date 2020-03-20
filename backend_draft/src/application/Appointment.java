@@ -2,13 +2,12 @@ package application;
 
 import java.time.LocalDateTime;
 
+
 public class Appointment extends Booking {
 
 	
 	private Doctor doctor; // maybe make this a list of staff involved
 	private Patient patient; // the patient
-
-	
 	
 	public Appointment(Doctor doctor, Patient patient, LocalDateTime startTime, Location location) {
 		super(startTime, location);
@@ -17,6 +16,7 @@ public class Appointment extends Booking {
 		
 	}
 	
+
 	public Doctor getDoctor() {
 		return doctor;
 	}
