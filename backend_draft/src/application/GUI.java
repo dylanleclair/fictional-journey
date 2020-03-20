@@ -7,14 +7,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -112,8 +121,11 @@ public class GUI extends Application {
 					Scene mainScene = new Scene(mainpane, 700,700);
 					
 					if (selectedRole == Roles.ADMIN) {
+
 					
-						addAdminElements(mainpane);
+						//addAdminElements(mainpane);
+
+						mainScene = generateScene("lol");
 						
 					} else if (selectedRole == Roles.DOCTOR) {
 						
@@ -250,6 +262,31 @@ public class GUI extends Application {
 		gpane.add(sample,1,0);
 	}
 
+	
+	public Scene generateScene (String fileName) {
+		try {
+			
+			
+			FXMLLoader loader = new FXMLLoader();
+			
+			
+			Parent root = loader.load(getClass().getResourceAsStream("BasicScene.FXML"));
+			
+			BasicController lol = (BasicController) loader.getController();
+			
+			lol.setName("hello");
+		
+			Scene scene = new Scene(root);
+			return scene;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	
+	}
+	
 	
 	/**
 	 * Adds doctor specific functionality to the shared UI.

@@ -12,6 +12,8 @@ public class Patient extends User {
 	public Patient(String name, String email, String phone) {
 		super(name, email, phone);
 	}
+
+
 	
 	
 	// if we want to be super extra we could hash appointments to an ID so that we can modify them 

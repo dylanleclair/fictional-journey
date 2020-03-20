@@ -3,7 +3,7 @@ package application;
 import java.io.Serializable;
 
 public class User implements Serializable {
-	
+
 	protected String name;
 	protected String emailAddress;
 	protected String phoneNumber;
@@ -15,5 +15,6 @@ public class User implements Serializable {
 		this.emailAddress = emailAddress;
 		this.phoneNumber = phoneNumber;
 	}
+
 	
 }
