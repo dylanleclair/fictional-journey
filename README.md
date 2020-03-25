@@ -5,7 +5,7 @@ To run our code, you will need to first clone the repository from GitHub.
 
 After this, go into Eclipse, and perform the following:
 
-File > Open Projects from File System... > now, navigate to the cloned repository, and select the folder labelled "backend_draft".
+File > Open Projects from File System... > now, navigate to the cloned repository, and **select the folder labelled "backend_draft".**
 
 Hit "Finish" in the corner of the import screen. 
 
