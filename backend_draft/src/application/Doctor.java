@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 	int[][] appointmentHours;
 	ArrayList<TimeSlot> openAppointments; // generated from appointmentHours and daysWorkWeek
 	Department department;
+	int[] workingDays; // denotes the days of the week that a doctor works - should be of length 7, since there are 7 days in a week. Starts on Sunday. 
     
     
     
