@@ -46,7 +46,7 @@ As you can see, there is a scheduled meeting in the list of appointments for bot
 
 Tests and other bookings attributed to the user would show up in either of the lists. 
 
-For now, that's really all the functionality we have. In the final iteration, we intend to make appointments and tests bookable from the GUI, and implement the tableview to actually display appointments and other bookings. 
+For now, that's really all the functionality we have. In the final iteration, we intend to make appointments and tests bookable from the GUI, and implement the tableview to actually display appointments and other bookings (along with the other items in our product backlog). 
 
 To create additional users and such, you can go into the Database java file and play around with initializeDatabase(). You can run this class's main to write your changes to the database, before going back into GUI and logging in as a user to see what you changed.
 
