@@ -12,11 +12,15 @@ public class Booking {
   
 	protected LocalDateTime startTime; // the date and time of the appointment
 	protected LocalDateTime endTime;
-	protected Location location; 
+	protected Department location; 
 	protected boolean available;
 	
-	
-	public Booking(LocalDateTime startTime, Location location) {
+	/**
+	 * Constructor for meetings that are 25 min long.
+	 * @param startTime
+	 * @param location
+	 */
+	public Booking(LocalDateTime startTime, Department location) {
 		
 		this.available = true;
 		this.startTime = startTime;
@@ -25,6 +29,23 @@ public class Booking {
 
 		
 	}
+	
+	public Booking() {
+		
+	}
+	
+	/**
+	 * This is used for booking an appointment with a doctor
+	 * @param doctor - the Doctor who's appointment it is
+	 * @param slot - a TimeSlot to retreive the start and end times from. 
+	 */
+	public Booking(Doctor doctor, TimeSlot slot) {
+		this.available = false;
+		this.startTime = slot.getStartTime();
+		this.endTime = slot.getEndTime();
+		this.location = doctor.department;
+	}
+	
 	
 
 	

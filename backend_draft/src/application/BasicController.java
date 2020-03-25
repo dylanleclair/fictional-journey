@@ -3,14 +3,38 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class BasicController {
 
 	
 
+	@FXML 
+	private ListView<Booking> appointments;
+	
+
+	public ListView<Booking> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(ObservableList<Booking> appointments) {
+		this.appointments.setItems(appointments);
+	}
+
+	@FXML 
+	private TableView tableview;
+	
+	@FXML
+	private TableColumn sunday;
+	
+	@FXML private TableColumn monday;
+	
     @FXML
     private ResourceBundle resources;
 
@@ -30,6 +54,10 @@ public class BasicController {
 
 	@FXML
     private Label role;
+	
+	public void setRole(String role) {
+		this.role.setText(role);
+	}
 
     @FXML
     void handleSettings(ActionEvent event) {
