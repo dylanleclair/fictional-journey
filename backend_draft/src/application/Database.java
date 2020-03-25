@@ -112,14 +112,6 @@ public class Database implements Serializable {
 		}
     	
     	
-    	// just a test to ensure that things are working properly
-    	for (Doctor item : test.doctors) {
-    		if (item.emailAddress.contentEquals("fake@lol.com" )) {
-    			System.out.println(item.getName());
-    		}
-    	}
-    	
-    	
     }
     
     /** 
@@ -144,7 +136,7 @@ public class Database implements Serializable {
 		
 		}	
 		
-			
+		System.out.println(list);
 		return list;
 	}
     
@@ -166,7 +158,7 @@ public class Database implements Serializable {
 		// after updating the system count and bookings, we should update the state of the database
 		
 		try {
-			this.saveData("data/system,dat");
+			this.saveData("data/system.dat");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

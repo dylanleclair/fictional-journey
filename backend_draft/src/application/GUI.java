@@ -52,6 +52,8 @@ public class GUI extends Application {
     String checkUser, checkPW;
     
     BasicController bcontroller;
+    HomeGUIDoctorController dcontroller;
+    HomeGUIPatientController pcontroller;
     
     User signedIn;
     
@@ -187,18 +189,23 @@ public class GUI extends Application {
 						mainScene = generateScene("lol");
 						
 					} else if (selectedRole == Roles.DOCTOR) {
-						mainScene = generateScene("lol");
-						bcontroller.setName(signedIn.getName());
-						bcontroller.setRole("Doctor");
-						bcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
-						System.out.println(datab.getBookings(signedIn, "Appointment"));
-						addDoctorElements(mainpane);
+						
+						mainScene=generateDoctorHome();
+						
+						System.out.println(signedIn.getName());
+						dcontroller.setName(signedIn.getName());
+						dcontroller.setRole("Doctor"); // add a job title field to Doctor
+						dcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
+						dcontroller.setMeetings(datab.getBookings(signedIn, "Meetings"));
 						
 					} else if (selectedRole == Roles.PATIENT) {
 						
+						mainScene=generatePatientHome();
 						
-						mainScene = generateScene("lol");
-						bcontroller.setName(signedIn.getName());
+						pcontroller.setName(signedIn.getName());
+						pcontroller.setRole("Patient"); // add a job title field to Doctor
+						pcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
+						pcontroller.setTests(datab.getBookings(signedIn, "Meetings"));
 						
 					}
 					
@@ -302,32 +309,10 @@ public class GUI extends Application {
 	}
 	
 	/**
-	 * Adds patient specific functionality to the shared UI.
-	 * @param gpane - the shared UI to add additional functionality to
+	 * Deprecated
+	 * @param fileName
+	 * @return
 	 */
-	public void addPatientElements (GridPane gpane) {
-		
-		
-		// add elements to make the scene specific to a patient
-		
-	}
-	
-	
-	/**
-	 * Adds admin specific functionality to the shared UI.
-	 * @param gpane
-	 */
-	public void addAdminElements (GridPane gpane) {
-		
-		// add elements to make scene specific to an admin
-		
-		Button sample = new Button("lol");
-		sample.setAlignment(Pos.CENTER);
-		
-		gpane.add(sample,1,0);
-	}
-
-	
 	public Scene generateScene (String fileName) {
 		try {
 			
@@ -350,6 +335,69 @@ public class GUI extends Application {
 		}
 		return null;
 	
+	}
+	
+	/**
+	 * Generates a the home scene for a doctor
+	 * @return
+	 */
+	public Scene generateDoctorHome() {
+		
+		try {
+			
+			FXMLLoader loader = new FXMLLoader();
+			
+			
+			Parent root = loader.load(getClass().getResourceAsStream("HomeGUIDoctor.fxml"));
+			
+			
+			HomeGUIDoctorController lol = (HomeGUIDoctorController) loader.getController();
+			
+			dcontroller = lol;
+			
+
+			Scene scene = new Scene(root);
+			return scene;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	
+		
+	}
+	
+	/**
+	 * Generates home scene for a patient
+	 * @return
+	 */
+	public Scene generatePatientHome() {
+		
+		try {
+			
+			FXMLLoader loader = new FXMLLoader();
+			
+			
+			Parent root = loader.load(getClass().getResourceAsStream("HomeGUIPatient.fxml"));
+			
+			
+			HomeGUIPatientController lol = (HomeGUIPatientController) loader.getController();
+			
+			pcontroller = lol;
+			
+
+			Scene scene = new Scene(root);
+			return scene;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+		
 	}
 	
 	
