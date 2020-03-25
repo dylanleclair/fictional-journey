@@ -44,10 +44,20 @@ import javafx.stage.Stage;
  */
 public class GUI extends Application {
 	
+	
+	Database datab = new Database();
+	
 	String user = "Moe";
     String pw = "password";
     String checkUser, checkPW;
     
+    BasicController bcontroller;
+    
+    User signedIn;
+    
+    boolean credentialsMatch = false;
+
+
     Roles selectedRole;
     
     
@@ -58,6 +68,7 @@ public class GUI extends Application {
 		
 		// we need to add initialization code for the database so users can actually login
 		
+		datab.loadData("data/system.dat");
 		
 		Stage window = primaryStage;
 		
@@ -109,11 +120,59 @@ public class GUI extends Application {
 		//loginButton.setOnAction(e -> window.setScene(scene2));
 		loginButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				String user, pass;
 				checkUser = userName.getText().toString();
 				checkPW = passwordField.getText().toString();
-				if (checkUser.equals(user) && checkPW.equals(pw)) {
+				
+				switch(selectedRole) {
+				
+				case DOCTOR :
 					
+			    	for (Doctor item : datab.doctors) {
+			    		if (item.emailAddress.contentEquals(checkUser)) {
+			    			if (checkPW .contentEquals(item.getPassword())) {
+			    				credentialsMatch = true;
+			    				signedIn = item;
+			    			}
+			    			
+			    		}
+			    	}
 					
+					break;
+				case ADMIN : 
+					
+			    	for (Admin item : datab.administrators) {
+			    		if (item.emailAddress.contentEquals(checkUser)) {
+			    			if (checkPW .contentEquals(item.getPassword())) {
+			    				credentialsMatch = true;
+			    				signedIn = item;
+			    			}
+			    			
+			    		}
+			    	}
+			    	
+					break;
+				
+				case PATIENT : 
+					
+			    	for (Patient item : datab.patients) {
+			    		if (item.emailAddress.contentEquals(checkUser)) {
+			    			if (checkPW .contentEquals(item.getPassword())) {
+			    				credentialsMatch = true;
+			    				signedIn = item;
+			    			}
+			    			
+			    		}
+			    	}
+					
+					break;
+					
+				}
+				
+
+				if (credentialsMatch) {
+					
+					//signedIn = fakePatient;
 					// Logic for determining which role was selected & building the proper GUI for them to see
 					
 					GridPane mainpane = new GridPane();
@@ -128,12 +187,18 @@ public class GUI extends Application {
 						mainScene = generateScene("lol");
 						
 					} else if (selectedRole == Roles.DOCTOR) {
-						
+						mainScene = generateScene("lol");
+						bcontroller.setName(signedIn.getName());
+						bcontroller.setRole("Doctor");
+						bcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
+						System.out.println(datab.getBookings(signedIn, "Appointment"));
 						addDoctorElements(mainpane);
 						
 					} else if (selectedRole == Roles.PATIENT) {
 						
-						addPatientElements(mainpane);
+						
+						mainScene = generateScene("lol");
+						bcontroller.setName(signedIn.getName());
 						
 					}
 					
@@ -274,7 +339,7 @@ public class GUI extends Application {
 			
 			BasicController lol = (BasicController) loader.getController();
 			
-			lol.setName("hello");
+			bcontroller = lol;
 		
 			Scene scene = new Scene(root);
 			return scene;

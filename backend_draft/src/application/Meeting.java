@@ -8,7 +8,7 @@ public class Meeting extends Booking {
 
 	protected ArrayList<User> staff; // the list of staff to be present at the meeting
   
-	public Meeting(LocalDateTime startTime, Location location) {
+	public Meeting(LocalDateTime startTime, Department location) {
 		super(startTime, location);
 		// TODO Auto-generated constructor stub
 	}

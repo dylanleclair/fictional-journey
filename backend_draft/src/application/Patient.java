@@ -3,16 +3,19 @@ package application;
 import java.io.File;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+
 public class Patient extends User {
 
-	ArrayList<Booking> bookings;
 	ArrayList<TestRecommendation> tests;
 	healthInfo patientRecord;
 
-	public Patient(String name, String email, String phone) {
-		super(name, email, phone);
+	public Patient(String name, String email, String phone, String password) {
+		super(name, email, phone, password);
 	}
 
+
+	
 
 	
 	
