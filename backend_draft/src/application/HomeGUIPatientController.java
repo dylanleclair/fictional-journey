@@ -13,12 +13,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class HomeGUIPatientController {
 
+	@FXML
+	private Pane calendarPane = new Pane();
 	
-	
+	public Pane getCalendarPane() {
+		return calendarPane;
+	}
+
+	public void setCalendarPane(Pane calendarPane) {
+		this.calendarPane = calendarPane;
+	}
+
 	@FXML 
 	private ListView<Booking> appointments;
 	

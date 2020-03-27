@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.YearMonth;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -386,6 +387,7 @@ public class GUI extends Application {
 			HomeGUIPatientController lol = (HomeGUIPatientController) loader.getController();
 			
 			pcontroller = lol;
+			pcontroller.getCalendarPane().getChildren().add(new FullCalendarView(YearMonth.now()).getView());
 			
 
 			Scene scene = new Scene(root);
