@@ -126,14 +126,14 @@
                <children>
                   <TableView prefHeight="528.0" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="tableViewTimeDoctor" prefWidth="75.0" text="Time" />
-                      <TableColumn prefWidth="75.0" text="Monday" />
-                        <TableColumn prefWidth="75.0" text="Tuesday" />
-                        <TableColumn prefWidth="75.0" text="Wednesday" />
-                        <TableColumn prefWidth="75.0" text="Thursday" />
-                        <TableColumn prefWidth="75.0" text="Friday" />
-                        <TableColumn prefWidth="75.0" text="Saturday" />
-                        <TableColumn prefWidth="75.0" text="Sunday" />
+                      <TableColumn fx:id="table" editable="false" prefWidth="50.0" sortable="false" text="Time" />
+                      <TableColumn editable="false" prefWidth="109.0" sortable="false" text="Monday" />
+                        <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Tuesday" />
+                        <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Wednesday" />
+                        <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Thursday" />
+                        <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Friday" />
+                        <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Saturday" />
+                        <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Sunday" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

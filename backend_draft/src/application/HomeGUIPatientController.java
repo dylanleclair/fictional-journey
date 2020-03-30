@@ -13,11 +13,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class HomeGUIPatientController {
 
 	
+
+	
+	@FXML
+	private TableView<String> table;
 	
 	@FXML 
 	private ListView<Booking> appointments;

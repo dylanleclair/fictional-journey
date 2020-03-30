@@ -45,7 +45,7 @@ import javafx.stage.Stage;
 public class GUI extends Application {
 	
 	
-	Database datab = new Database();
+	static Database datab = new Database();
 	
 	String user = "Moe";
     String pw = "password";
@@ -54,6 +54,9 @@ public class GUI extends Application {
     BasicController bcontroller;
     HomeGUIDoctorController dcontroller;
     HomeGUIPatientController pcontroller;
+    
+    
+    MainSceneController mcontroller;
     
     User signedIn;
     
@@ -73,6 +76,7 @@ public class GUI extends Application {
 		datab.loadData("data/system.dat");
 		
 		Stage window = primaryStage;
+		window.setResizable(false);
 		
 		GridPane userSelection = new GridPane();
 		//Image image = new Image("logo.jpg", 400, 100, false, false);
@@ -186,7 +190,7 @@ public class GUI extends Application {
 					
 						//addAdminElements(mainpane);
 
-						mainScene = generateScene("lol");
+						mainScene = generateScene();
 						
 					} else if (selectedRole == Roles.DOCTOR) {
 						
@@ -195,8 +199,8 @@ public class GUI extends Application {
 						System.out.println(signedIn.getName());
 						dcontroller.setName(signedIn.getName());
 						dcontroller.setRole("Doctor"); // add a job title field to Doctor
-						dcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
-						dcontroller.setMeetings(datab.getBookings(signedIn, "Meetings"));
+						//dcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
+						//dcontroller.setMeetings(datab.getBookings(signedIn, "Meetings"));
 						
 					} else if (selectedRole == Roles.PATIENT) {
 						
@@ -204,8 +208,8 @@ public class GUI extends Application {
 						
 						pcontroller.setName(signedIn.getName());
 						pcontroller.setRole("Patient"); // add a job title field to Doctor
-						pcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
-						pcontroller.setTests(datab.getBookings(signedIn, "Meetings"));
+						pcontroller.setAppointments(datab.getBookings(signedIn));
+						//pcontroller.setTests(datab.getBookings(signedIn, "Meetings"));
 						
 					}
 					
@@ -313,18 +317,21 @@ public class GUI extends Application {
 	 * @param fileName
 	 * @return
 	 */
-	public Scene generateScene (String fileName) {
+	public Scene generateScene () {
 		try {
 			
 			
 			FXMLLoader loader = new FXMLLoader();
 			
 			
-			Parent root = loader.load(getClass().getResourceAsStream("BasicScene.FXML"));
+			Parent root = loader.load(getClass().getResourceAsStream("MainScene.FXML"));
 			
-			BasicController lol = (BasicController) loader.getController();
+			MainSceneController lol = (MainSceneController) loader.getController();
 			
-			bcontroller = lol;
+			mcontroller = lol;
+			
+			lol.setSignedIn(signedIn);
+			lol.init();
 		
 			Scene scene = new Scene(root);
 			return scene;
