@@ -15,7 +15,7 @@ public class Database implements Serializable {
     /**
 	 * 
 	 */
-	//private static final long serialVersionUID = -4264496296267755018L;
+	//if private static final long serialVersionUID = -4264496296267755018L;
 	ArrayList<Admin> administrators;
     ArrayList<Doctor> doctors;
     ArrayList<Patient> patients;

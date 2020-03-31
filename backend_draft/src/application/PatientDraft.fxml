@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane layoutX="172.0" layoutY="8.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane maxWidth="587.0" minHeight="1800.0" minWidth="584.0" prefHeight="746.0" prefWidth="584.0">
+               <children>
+                  <VBox prefHeight="576.0" prefWidth="582.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <BorderPane minHeight="300.0" prefHeight="247.0" prefWidth="584.0">
+                           <top>
+                              <Label text="Book a Test" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="220.0" prefWidth="148.0" spacing="6.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="Select a test from your recommended:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" />
+                                    <Label text="Pick a date:" wrapText="true" />
+                                    <DatePicker />
+                                    <Label text="Selected timeslot:" />
+                                    <Label text="Day of appointment" />
+                                    <Label text="Time of appointment" />
+                                    <Button mnemonicParsing="false" text="Book (disable until timeslot picked)" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                           <center>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="202.0" prefWidth="406.0">
+                                             <content>
+                                                <FlowPane maxWidth="407.0" minWidth="384.0" prefHeight="215.0" prefWidth="407.0">
+                                                   <children>
+                                                      <StackPane prefHeight="100.0" prefWidth="100.0" style="-fx-focus-traversable: true;">
+                                                         <children>
+                                                            <BorderPane prefHeight="100.0" prefWidth="100.0" />
+                                                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#83dce1" height="95.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="95.0" />
+                                                            <VBox prefHeight="200.0" prefWidth="100.0">
+                                                               <children>
+                                                                  <Label text="Slot 1">
+                                                                     <font>
+                                                                        <Font size="17.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label text="Starts at 10:30" />
+                                                                  <Label text="Ends at 10:55" />
+                                                               </children>
+                                                               <padding>
+                                                                  <Insets left="10.0" top="10.0" />
+                                                               </padding>
+                                                            </VBox>
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </FlowPane>
+                                             </content>
+                                             <VBox.margin>
+                                                <Insets right="15.0" />
+                                             </VBox.margin>
+                                          </ScrollPane>
+                                       </children>
+                                       <BorderPane.margin>
+                                          <Insets left="15.0" />
+                                       </BorderPane.margin>
+                                    </VBox>
+                                 </center>
+                                 <top>
+                                    <Label text="Available time slots:" BorderPane.alignment="TOP_LEFT">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                       <padding>
+                                          <Insets bottom="6.0" left="15.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="381.0" prefWidth="503.0">
+                           <top>
+                              <Label text="Manage Bookings" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="370.0" prefWidth="148.0" spacing="6.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label prefWidth="116.0" text="Pick a booking type:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Department" />
+                                    <Button mnemonicParsing="false" text="View bookings" />
+                                    <Label text="To reschedule a booking, please cancel it and book another." wrapText="true" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                           <center>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="394.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ListView layoutX="15.0" layoutY="12.0" prefHeight="202.0" prefWidth="391.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                           <bottom>
+                              <HBox prefHeight="45.0" prefWidth="584.0" spacing="8.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Cancel booking" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </HBox>
+                           </bottom>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <top>
+                              <Label text="Edit My Information" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="157.0" prefWidth="581.0" spacing="5.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="Your name" />
+                                    <TextField promptText="Name" />
+                                    <Label text="Your email" />
+                                    <TextField promptText="Email" />
+                                    <Label text="Your phone number" />
+                                    <TextField promptText="Phone Number" />
+                                    <Label text="Your address" />
+                                    <TextField />
+                                    <Label text="Your password" />
+                                    <PasswordField promptText="Password" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                                       <children>
+                                          <Label text="Days you wish to take appointments:" />
+                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                                             <children>
+                                                <CheckBox mnemonicParsing="false" text="Sunday" />
+                                                <CheckBox mnemonicParsing="false" text="Monday" />
+                                                <CheckBox mnemonicParsing="false" text="Tuesday" />
+                                                <CheckBox mnemonicParsing="false" text="Wednesday" />
+                                                <CheckBox mnemonicParsing="false" text="Thursday" />
+                                                <CheckBox mnemonicParsing="false" text="Friday" />
+                                                <CheckBox mnemonicParsing="false" text="Saturday" />
+                                             </children>
+                                          </HBox>
+                                          <Label text="Appointment hours (list in intervals, ex: (8-11) use military time, separate with commas)" />
+                                          <TextField promptText="(8-11), (13-15). . ." />
+                                       </children>
+                                    </VBox>
+                                    <Button mnemonicParsing="false" text="Update my information">
+                                       <VBox.margin>
+                                          <Insets top="8.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                        <BorderPane prefHeight="381.0" prefWidth="503.0">
+                           <top>
+                              <Label text="Manage Users" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="370.0" prefWidth="148.0" spacing="6.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label prefWidth="116.0" text="Pick a department:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Department" />
+                                    <Button mnemonicParsing="false" text="View users" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                           <center>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="394.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ListView layoutX="15.0" layoutY="12.0" prefHeight="202.0" prefWidth="391.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                           <bottom>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <top>
+                                    <Label text="Edit User's Information" BorderPane.alignment="TOP_LEFT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="15.0" top="15.0" />
+                                       </padding>
+                                    </Label>
+                                 </top>
+                                 <left>
+                                    <VBox prefHeight="157.0" prefWidth="581.0" spacing="5.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label text="Your name" />
+                                          <TextField promptText="Name" />
+                                          <Label text="Your email" />
+                                          <TextField promptText="Email" />
+                                          <Label text="Your phone number" />
+                                          <TextField promptText="Phone Number" />
+                                          <Label text="Your address" />
+                                          <TextField />
+                                          <Label text="Your password" />
+                                          <PasswordField promptText="Password" />
+                                          <Button mnemonicParsing="false" text="Update User's Information">
+                                             <VBox.margin>
+                                                <Insets top="8.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                    </VBox>
+                                 </left>
+                                 <bottom>
+                                    <HBox prefHeight="52.0" prefWidth="584.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="View User's Schedule">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </bottom>
+                              </BorderPane>
+                           </bottom>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <top>
+                              <Label text="Edit My Information" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="157.0" prefWidth="581.0" spacing="5.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="Your name" />
+                                    <TextField promptText="Name" />
+                                    <Label text="Your email" />
+                                    <TextField promptText="Email" />
+                                    <Label text="Your phone number" />
+                                    <TextField promptText="Phone Number" />
+                                    <Label text="Your address" />
+                                    <TextField />
+                                    <Label text="Your password" />
+                                    <PasswordField promptText="Password" />
+                                    <Button mnemonicParsing="false" text="Update my information">
+                                       <VBox.margin>
+                                          <Insets top="8.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                        <BorderPane prefHeight="381.0" prefWidth="584.0">
+                           <top>
+                              <Label text="Book an Appointment" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="370.0" prefWidth="148.0" spacing="6.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label prefWidth="116.0" text="Pick a department:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Department" />
+                                    <Label text="Pick a doctor:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Doctor" />
+                                    <Label text="Pick a date:" wrapText="true" />
+                                    <DatePicker />
+                                    <Label text="Selected timeslot:" />
+                                    <Label text="Day of appointment" />
+                                    <Label text="Time of appointment" />
+                                    <Button mnemonicParsing="false" text="Book (disable until timeslot picked)" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                           <center>
+                              <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="262.0" prefWidth="405.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <FlowPane maxWidth="390.0" minWidth="390.0" prefHeight="266.0" prefWidth="390.0">
+                                       <children>
+                                          <StackPane prefHeight="100.0" prefWidth="100.0" style="-fx-focus-traversable: true;">
+                                             <children>
+                                                <BorderPane prefHeight="100.0" prefWidth="100.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#83dce1" height="95.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="95.0" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Label text="Slot 1">
+                                                         <font>
+                                                            <Font size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Starts at 10:30" />
+                                                      <Label text="Ends at 10:55" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" top="10.0" />
+                                                   </padding>
+                                                </VBox>
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </FlowPane>
+                                 </content>
+                                 <BorderPane.margin>
+                                    <Insets top="-20.0" />
+                                 </BorderPane.margin>
+                              </ScrollPane>
+                           </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="381.0" prefWidth="584.0">
+                           <top>
+                              <Label text="Book an Appointment" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="370.0" prefWidth="148.0" spacing="6.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label prefWidth="116.0" text="Pick a department:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Department" />
+                                    <Label text="Pick a doctor:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Doctor" />
+                                    <Label text="Pick a date:" wrapText="true" />
+                                    <DatePicker />
+                                    <Label text="Selected timeslot:" />
+                                    <Label text="Day of appointment" />
+                                    <Label text="Time of appointment" />
+                                    <Button mnemonicParsing="false" text="Book (disable until timeslot picked)" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                           <center>
+                              <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="262.0" prefWidth="405.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <FlowPane maxWidth="390.0" minWidth="390.0" prefHeight="266.0" prefWidth="390.0">
+                                       <children>
+                                          <StackPane prefHeight="100.0" prefWidth="100.0" style="-fx-focus-traversable: true;">
+                                             <children>
+                                                <BorderPane prefHeight="100.0" prefWidth="100.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#83dce1" height="95.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="95.0" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Label text="Slot 1">
+                                                         <font>
+                                                            <Font size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Starts at 10:30" />
+                                                      <Label text="Ends at 10:55" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" top="10.0" />
+                                                   </padding>
+                                                </VBox>
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </FlowPane>
+                                 </content>
+                                 <BorderPane.margin>
+                                    <Insets top="-20.0" />
+                                 </BorderPane.margin>
+                              </ScrollPane>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

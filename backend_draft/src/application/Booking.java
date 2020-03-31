@@ -66,6 +66,17 @@ public class Booking implements Serializable {
 		
 		String type = this.getClass().getName().substring(12);
 		
+		
+		String localTime = startTime.toLocalTime().toString();
+		
+		if (localTime == "00:00") {
+			localTime = "Midnight";
+			
+		} else if (localTime == "12:00") {
+			localTime = "Noon";
+		} // add logic to account for 13-24 to actually be regular times instead of military lol
+		
+		
 		return type + " on " + monthDay + " at " + startTime.toLocalTime().toString();
 	}
 	

@@ -392,10 +392,6 @@ public class MainSceneController {
     	}
     	
     	
-    	
-    	// add code to populate gridview with appointments
-    	
-    	
     }
     
    
