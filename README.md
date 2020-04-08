@@ -1,4 +1,7 @@
 # fictional-journey
+
+# Note - this is deprecated as of April 8th, and will be updated before final submission.
+
 A repository for the SENG 300 Group Project
 
 To run our code, you will need to first clone the repository from GitHub. 
