@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
 
+	protected String title;
 	protected String name;
 	protected String emailAddress;
 	protected String phoneNumber;

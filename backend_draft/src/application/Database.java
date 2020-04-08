@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -14,7 +15,7 @@ public class Database implements Serializable {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -4264496296267755018L;
+	//if private static final long serialVersionUID = -4264496296267755018L;
 	ArrayList<Admin> administrators;
     ArrayList<Doctor> doctors;
     ArrayList<Patient> patients;
@@ -73,14 +74,16 @@ public class Database implements Serializable {
     	
         int[][] lol = {{1,2}, {3,4}};
         
-        Doctor fakeDoc = new Doctor(lol, Department.CARDIOLOGY, "Dylan Leclair", "fake@lol.com","4035127333", "pog");
-        Patient fakePatient = new Patient("John Doe", "fake@sukrum.com", "403 512 7333" , "lmao");
+        Doctor fakeDoc = new Doctor(lol, Department.CARDIOLOGY, "John", "john","4035127333", "1");
+        Patient fakePatient = new Patient("Adam", "adam", "403 512 7333" , "1");
+        Admin dylan = new Admin("Dylan", "dylan", "fake", "1");
         
         
+        this.administrators.add(dylan);
         this.doctors.add(fakeDoc);
         this.patients.add(fakePatient);
         addAppointment(fakePatient, fakeDoc, new TimeSlot(LocalDateTime.now()));
-    	
+    	addMeeting(dylan);
         
     }
     
@@ -120,19 +123,15 @@ public class Database implements Serializable {
      * @param the class name of the type of Booking you want to collect -- ie: Appointment for a patient's appointments.
      * @return
      */
-	public ObservableList<Booking> getBookings (User user, String typeOfBooking) {
+	public ObservableList<Booking> getBookings (User user) {
 	
 		ObservableList<Booking> list = FXCollections.observableArrayList();
 		
 		for(Integer id : user.getBookingIDs()) {
-			
-			Booking booking = bookings.get(id);
-			System.out.println(booking.getClass().getName());
-			if (booking.getClass().getName().contentEquals("application." + typeOfBooking) ) {
 		
+
 			list.add(bookings.get(id));
-			
-			}
+
 		
 		}	
 		
@@ -140,12 +139,44 @@ public class Database implements Serializable {
 		return list;
 	}
     
+	
+    /** 
+     * Retrieves a list of all of a users specified type of Bookings. (Bookings can be appointments, meetings, or tests.)
+     * @param the user you want to retrieve the bookings from, for example a Patient could be provided here.
+     * @param the class name of the type of Booking you want to collect -- ie: Appointment for a patient's appointments.
+     * @return
+     */
+	public ArrayList<Booking> getBookings (User user, LocalDate date) {
+	
+		ArrayList<Booking> list = new ArrayList<Booking>();
+		
+		for(Integer id : user.getBookingIDs()) {
+			
+			
+			
+			Booking booking = bookings.get(id);
+			LocalDateTime start = booking.startTime;
+			LocalDate dayOf = start.toLocalDate();
+			
+			if (dayOf.equals(date)) {
+				list.add(booking);
+			}
+			
+			
+
+		
+		}	
+
+		return list;
+	}
+    
+	
     /**
      * Adds an appointment to the system, adding the appointment id to the patients and doctors lists.
      * @param patient
      * @param doctor
      */
-	public void addAppointment (Patient patient, Doctor doctor, TimeSlot slot) {
+	public void addAppointment (User patient, Doctor doctor, TimeSlot slot) {
 	
 	
 		bookings.put(systemBookingCount, new Appointment(doctor, slot));
@@ -165,6 +196,34 @@ public class Database implements Serializable {
 		
 		
 	}
+	
+	
+	public void addMeeting (User user) {
+		
+		bookings.put(systemBookingCount, new Booking("lol"));
+		user.bookingIDs.add(systemBookingCount);
+		
+		systemBookingCount++;
+		
+	}
+	
+	
+	public ArrayList<Doctor> getDoctors (Department dept) {
+		
+		ArrayList<Doctor> docs = new ArrayList<Doctor>();
+		
+		for (Doctor doc : doctors) {
+			if (doc.department == dept) {
+				docs.add(doc);
+			}
+		}
+		
+		
+		return docs;
+		
+	
+	}
+	
 	
 }
 
