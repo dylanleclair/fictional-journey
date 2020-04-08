@@ -20,14 +20,135 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane layoutX="172.0" layoutY="8.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <content>
-          <AnchorPane maxWidth="587.0" minHeight="1800.0" minWidth="584.0" prefHeight="746.0" prefWidth="584.0">
+          <AnchorPane maxWidth="765.0" minHeight="2800.0" minWidth="765.0" prefHeight="746.0" prefWidth="584.0">
                <children>
                   <VBox prefHeight="576.0" prefWidth="582.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <BorderPane prefHeight="381.0" prefWidth="503.0">
+                           <top>
+                              <Label text="Manage Users" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="177.0" prefWidth="148.0" spacing="8.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label prefWidth="116.0" text="Pick a user type:" wrapText="true" />
+                                    <ComboBox prefWidth="150.0" promptText="Department" />
+                                    <Button mnemonicParsing="false" text="Add a new (user type)" />
+                                    <Button mnemonicParsing="false" text="Delete (user type)" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                           <center>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="617.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ListView layoutX="15.0" layoutY="12.0" prefHeight="202.0" prefWidth="556.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                           <bottom>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <top>
+                                    <Label text="Edit User's Information" BorderPane.alignment="TOP_LEFT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="15.0" top="15.0" />
+                                       </padding>
+                                    </Label>
+                                 </top>
+                                 <left>
+                                    <VBox prefHeight="157.0" prefWidth="581.0" spacing="5.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label text="User's name" />
+                                          <TextField promptText="Name" />
+                                          <Label text="User's email" />
+                                          <TextField promptText="Email" />
+                                          <Label text="User's phone number" />
+                                          <TextField promptText="Phone Number" />
+                                          <Label text="User's address" />
+                                          <TextField promptText="Address" />
+                                          <Label text="Don't forget to add doctor specific fields" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                    </VBox>
+                                 </left>
+                                 <bottom>
+                                    <HBox prefHeight="46.0" prefWidth="584.0" spacing="6.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Update User's Information">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" text="View User's Schedule">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </bottom>
+                              </BorderPane>
+                           </bottom>
+                        </BorderPane>
+                        <BorderPane prefHeight="288.0" prefWidth="584.0">
+                           <top>
+                              <Label text="Recommend a Test" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                           </top>
+                           <center>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="158.0" prefWidth="584.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <VBox layoutX="6.0" prefHeight="159.0" prefWidth="584.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Type of test:" />
+                                          <TextField promptText="Name of test">
+                                             <VBox.margin>
+                                                <Insets right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <Label prefWidth="116.0" text="Pick a patient:" wrapText="true" />
+                                          <TextField promptText="Name of patient">
+                                             <VBox.margin>
+                                                <Insets right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <Button mnemonicParsing="false" text="Recommend test" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                        </BorderPane>
                         <BorderPane minHeight="300.0" prefHeight="247.0" prefWidth="584.0">
                            <top>
                               <Label text="Book a Test" BorderPane.alignment="TOP_LEFT">
@@ -209,86 +330,6 @@
                                  </padding>
                               </VBox>
                            </left>
-                        </BorderPane>
-                        <BorderPane prefHeight="381.0" prefWidth="503.0">
-                           <top>
-                              <Label text="Manage Users" BorderPane.alignment="TOP_LEFT">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="15.0" top="15.0" />
-                                 </padding>
-                              </Label>
-                           </top>
-                           <left>
-                              <VBox prefHeight="370.0" prefWidth="148.0" spacing="6.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Label prefWidth="116.0" text="Pick a department:" wrapText="true" />
-                                    <ComboBox prefWidth="150.0" promptText="Department" />
-                                    <Button mnemonicParsing="false" text="View users" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="15.0" left="15.0" top="10.0" />
-                                 </padding>
-                              </VBox>
-                           </left>
-                           <center>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="394.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <ListView layoutX="15.0" layoutY="12.0" prefHeight="202.0" prefWidth="391.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-                                 </children>
-                              </AnchorPane>
-                           </center>
-                           <bottom>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <top>
-                                    <Label text="Edit User's Information" BorderPane.alignment="TOP_LEFT">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets left="15.0" top="15.0" />
-                                       </padding>
-                                    </Label>
-                                 </top>
-                                 <left>
-                                    <VBox prefHeight="157.0" prefWidth="581.0" spacing="5.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label text="Your name" />
-                                          <TextField promptText="Name" />
-                                          <Label text="Your email" />
-                                          <TextField promptText="Email" />
-                                          <Label text="Your phone number" />
-                                          <TextField promptText="Phone Number" />
-                                          <Label text="Your address" />
-                                          <TextField />
-                                          <Label text="Your password" />
-                                          <PasswordField promptText="Password" />
-                                          <Button mnemonicParsing="false" text="Update User's Information">
-                                             <VBox.margin>
-                                                <Insets top="8.0" />
-                                             </VBox.margin>
-                                          </Button>
-                                       </children>
-                                       <padding>
-                                          <Insets left="15.0" right="15.0" />
-                                       </padding>
-                                    </VBox>
-                                 </left>
-                                 <bottom>
-                                    <HBox prefHeight="52.0" prefWidth="584.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button mnemonicParsing="false" text="View User's Schedule">
-                                             <HBox.margin>
-                                                <Insets left="15.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                 </bottom>
-                              </BorderPane>
-                           </bottom>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                            <top>
