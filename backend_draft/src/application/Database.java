@@ -74,8 +74,8 @@ public class Database implements Serializable {
     	
         int[][] lol = {{1,2}, {3,4}};
         
-        Doctor fakeDoc = new Doctor(lol, Department.CARDIOLOGY, "Dylan Leclair", "fake@lol.com","4035127333", "pog");
-        Patient fakePatient = new Patient("John Doe", "fake@sukrum.com", "403 512 7333" , "lmao");
+        Doctor fakeDoc = new Doctor(lol, Department.CARDIOLOGY, "John", "john","4035127333", "1");
+        Patient fakePatient = new Patient("Adam", "adam", "403 512 7333" , "1");
         Admin dylan = new Admin("Dylan", "dylan", "fake", "1");
         
         
@@ -176,7 +176,7 @@ public class Database implements Serializable {
      * @param patient
      * @param doctor
      */
-	public void addAppointment (Patient patient, Doctor doctor, TimeSlot slot) {
+	public void addAppointment (User patient, Doctor doctor, TimeSlot slot) {
 	
 	
 		bookings.put(systemBookingCount, new Appointment(doctor, slot));
@@ -206,6 +206,24 @@ public class Database implements Serializable {
 		systemBookingCount++;
 		
 	}
+	
+	
+	public ArrayList<Doctor> getDoctors (Department dept) {
+		
+		ArrayList<Doctor> docs = new ArrayList<Doctor>();
+		
+		for (Doctor doc : doctors) {
+			if (doc.department == dept) {
+				docs.add(doc);
+			}
+		}
+		
+		
+		return docs;
+		
+	
+	}
+	
 	
 }
 

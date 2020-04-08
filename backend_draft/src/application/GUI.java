@@ -51,10 +51,6 @@ public class GUI extends Application {
     String pw = "password";
     String checkUser, checkPW;
     
-    BasicController bcontroller;
-    HomeGUIDoctorController dcontroller;
-    HomeGUIPatientController pcontroller;
-    
     
     MainSceneController mcontroller;
     
@@ -194,23 +190,11 @@ public class GUI extends Application {
 						
 					} else if (selectedRole == Roles.DOCTOR) {
 						
-						mainScene=generateDoctorHome();
-						
-						System.out.println(signedIn.getName());
-						dcontroller.setName(signedIn.getName());
-						dcontroller.setRole("Doctor"); // add a job title field to Doctor
-						//dcontroller.setAppointments(datab.getBookings(signedIn, "Appointment"));
-						//dcontroller.setMeetings(datab.getBookings(signedIn, "Meetings"));
-						
+						mainScene = generateScene();
 					} else if (selectedRole == Roles.PATIENT) {
 						
-						mainScene=generatePatientHome();
-						
-						pcontroller.setName(signedIn.getName());
-						pcontroller.setRole("Patient"); // add a job title field to Doctor
-						pcontroller.setAppointments(datab.getBookings(signedIn));
-						//pcontroller.setTests(datab.getBookings(signedIn, "Meetings"));
-						
+						mainScene = generateScene();
+
 					}
 					
 					window.setScene(mainScene);
@@ -357,11 +341,6 @@ public class GUI extends Application {
 			
 			Parent root = loader.load(getClass().getResourceAsStream("HomeGUIDoctor.fxml"));
 			
-			
-			HomeGUIDoctorController lol = (HomeGUIDoctorController) loader.getController();
-			
-			dcontroller = lol;
-			
 
 			Scene scene = new Scene(root);
 			return scene;
@@ -388,11 +367,6 @@ public class GUI extends Application {
 			
 			
 			Parent root = loader.load(getClass().getResourceAsStream("HomeGUIPatient.fxml"));
-			
-			
-			HomeGUIPatientController lol = (HomeGUIPatientController) loader.getController();
-			
-			pcontroller = lol;
 			
 
 			Scene scene = new Scene(root);

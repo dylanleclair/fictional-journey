@@ -87,7 +87,7 @@ public Doctor(int[][] apptHours, Department dept, String name, String email, Str
 	 * @param doc
 	 * @return
 	 */
-	public ObservableList<TimeSlot> generateTimeSlots(Doctor doc) {
+	public ObservableList<TimeSlot> generateTimeSlots(Doctor doc, LocalDate day) {
 		
 		ObservableList<TimeSlot> openSlots = FXCollections.observableArrayList();
 		
@@ -129,6 +129,43 @@ public Doctor(int[][] apptHours, Department dept, String name, String email, Str
 	}
 	
 	
+	
+	public ArrayList<TimeSlot> genTimeSlots(LocalDate day) {
+		
+		ArrayList<TimeSlot> openSlots = new ArrayList<TimeSlot>();
+		
+		for (int[] range : this.appointmentHours) {
+			
+			
+			LocalTime start = LocalTime.of(range[0], 0);
+			LocalTime end = LocalTime.of(range[1], 0);
+			
+			while(start.isBefore(end)) {
+				
+				LocalDateTime slotTime = LocalDateTime.of(day, start);
+				
+				openSlots.add(new TimeSlot(slotTime));
+				slotTime = slotTime.plusMinutes(30);
+				
+				openSlots.add(new TimeSlot(slotTime));
+				slotTime = slotTime.plusMinutes(30);
+				
+				start = start.plusHours(1);
+				
+				
+			}
+			
+		}
+		
+		return openSlots;
+		
+	}
+	
+	
+	public String toString() {
+		return name;
+		
+	}
 	
 	
 	
