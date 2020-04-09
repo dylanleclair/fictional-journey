@@ -49,6 +49,10 @@ public enum Department {
     public String getValue() {
     	return this.value;
     }
+    
+    public String toString() {
+    	return this.value;
+    }
 	
 }
 

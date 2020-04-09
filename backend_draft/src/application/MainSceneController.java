@@ -1,6 +1,7 @@
 package application;
 
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,6 +25,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
@@ -52,7 +54,9 @@ public class MainSceneController {
 	private View currentView;
 	private String signedInRole;
     private TimeSlot selectedApptSlot;
+	private boolean initialSlotsLoaded;
 	
+	private StackPane selectedApptElement;
 	
 	
     private LocalDate[] dates;
@@ -360,6 +364,7 @@ public class MainSceneController {
     	
     	if (currentView == View.CALENDAR) {
     	
+    		changeView.setText("My Calendar View");
     		// switch to control
     		currentView = View.CONTROL;
     		buildControlView();
@@ -367,6 +372,7 @@ public class MainSceneController {
         	splitPane.getItems().add(cpanel);
     	} else {
     		
+    		changeView.setText("My Control Panel");
     		// switch to calendar
     		currentView = View.CALENDAR;
         	splitPane.getItems().remove(1);
@@ -383,21 +389,23 @@ public class MainSceneController {
     	
     	AnchorPane pane = new AnchorPane();
     	
+    	ScrollPane cscroll = new ScrollPane();
     	
-    	pane.setMaxSize(782, 1000);
-    	pane.setMinSize(782, 1000);
-    	
+
     	
     	VBox manager = new VBox();
+    	cscroll.setContent(manager);
+    	
+    	
     	//manager.setMaxSize(780,640);
     	//manager.setMinSize(780,640);
     	
-    	//AnchorPane.setTopAnchor(manager, (double) 0);
-    	//AnchorPane.setBottomAnchor(manager, (double) 0);
-    	//AnchorPane.setLeftAnchor(manager, (double) 0);
-    	//AnchorPane.setRightAnchor(manager,(double)0);
+    	AnchorPane.setTopAnchor(cscroll, (double) 0);
+    	AnchorPane.setBottomAnchor(cscroll, (double) 0);
+    	AnchorPane.setLeftAnchor(cscroll, (double) 0);
+    	AnchorPane.setRightAnchor(cscroll,(double)0);
     	
-    	pane.getChildren().add(manager);
+    	pane.getChildren().add(cscroll);
     	
     	//scrollPane.setContent(pane);
     	
@@ -405,10 +413,13 @@ public class MainSceneController {
     	if (typeOfSignedIn.contentEquals("Admin")) {
     	
     	// add admin elements
+    		manager.getChildren().add(generateEditInfoPanel());
     		
     	} else if (typeOfSignedIn.contentEquals("Doctor")) {
     		
     	// add doctor/staff elements	
+    		
+    		manager.getChildren().add(generateEditInfoPanel());
     	
     	} else if (typeOfSignedIn.contentEquals("Patient")) {
     		
@@ -448,7 +459,7 @@ public class MainSceneController {
 	
 	public Pane generateEditInfoPanel () {
 		
-		String[] list = {"Name", "Email", "Phone Number", "Address", "Password"};
+		String[] list = {"Name", "Email (used for logins)", "Phone Number", "Password"};
 		
 		String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 		
@@ -475,15 +486,28 @@ public class MainSceneController {
 		//canvas.getChildren().add(internal);
 		
 		// Build the labels and textfields for their corresponding thing
+	
+		
+		
+		
+		TextField[] tfs = {new TextField(signedIn.name), new TextField(signedIn.emailAddress), new TextField(signedIn.phoneNumber)};
+		
+		int ind = 0;
+		
 		for (String item : list) {
-			
 			Label itemTitle = new Label("Your "+ item);
-			TextField itemField = new TextField();
-			itemField.setPromptText(item);
+			if (!item.contentEquals("Password")) {
+				
+				// add the components to the VBox
+				internal.getChildren().addAll(itemTitle,tfs[ind]);
+			} else {
+				PasswordField pfield = new PasswordField();
+				pfield.setPromptText("Enter a new password.");
+				
+				internal.getChildren().addAll(itemTitle,pfield);
+			}
 			
-			// add the components to the VBox
-			internal.getChildren().addAll(itemTitle,itemField);
-			
+			ind++;
 		}
 		
 		// doctor specific elements
@@ -510,11 +534,32 @@ public class MainSceneController {
 			internal.getChildren().addAll(appointmentHours, appointmentSet);
 			
 		}
-		
+
 		Button update = new Button("Update my information");
 		
 		update.setOnAction(e -> {
 			// add the function for the button here!!
+				
+			TextField tf = (TextField) internal.getChildren().get(1);				
+			signedIn.setName(tf.getText());
+			
+			tf = (TextField) internal.getChildren().get(3);
+			signedIn.setEmailAddress(tf.getText());	
+
+			tf = (TextField) internal.getChildren().get(5);
+			signedIn.setPhoneNumber(tf.getText());
+			
+			PasswordField pf = (PasswordField) internal.getChildren().get(7);
+			if (!pf.getText().contentEquals("")) {
+				signedIn.setPassword(pf.getText());
+			}
+			
+			try {
+				GUI.datab.saveData("data/system.dat");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
 		});
 		
 		internal.getChildren().add(update);
@@ -542,6 +587,7 @@ public class MainSceneController {
 	 */
 	public BorderPane generateBookAppointmentPanel () {
 		
+		initialSlotsLoaded = false;
 		
 		
 		BorderPane pane = new BorderPane();
@@ -593,28 +639,46 @@ public class MainSceneController {
 		
 		// make components for selecting a timeslot 
 		
+		VBox center = new VBox();
+		
+		center.setPadding(new Insets(0,0,0,15));
+		
+		Label availableTitle = new Label("Available time slots:");
+		availableTitle.setFont(new Font(15));
+		
+		ScrollPane aTimeSlots = new ScrollPane();
+		aTimeSlots.setMinSize(320, 210);
+		aTimeSlots.setMaxSize(320, 210);
+		
 		FlowPane previewSlots = new FlowPane();
-		previewSlots.setMaxSize(394.0, 266.0);
+		previewSlots.setMaxSize(300.0, 200.0);
 		
-		
+		aTimeSlots.setContent(previewSlots);
 		
 		// Program the functionality 
 	
+		center.getChildren().addAll(availableTitle,aTimeSlots);
+		
 		department.setOnAction( e -> {
 			
 			
-			department.setDisable(true); // remove when bug testing
+			//department.setDisable(true); // remove when bug testing
 			// allow a doctor to be chosen
 			doctor.setItems(FXCollections.observableArrayList(GUI.datab.getDoctors(department.getValue())));
 			doctor.setDisable(false);
+			
+			if(initialSlotsLoaded) refreshSlotPreview(previewSlots,department.getValue(),doctor.getValue(),dayPicker.getValue(), dayTimeslot, timeTimeslot);
+			
 		});
 		
 		doctor.setOnAction(e -> {
 			
 			
-			doctor.setDisable(true); // remove when bug testing
+			//doctor.setDisable(true); // remove when bug testing
 			// enable daypicker
 			dayPicker.setDisable(false); 
+			
+			if (initialSlotsLoaded) refreshSlotPreview(previewSlots,department.getValue(),doctor.getValue(),dayPicker.getValue(), dayTimeslot, timeTimeslot);
 			
 		});
 		
@@ -624,80 +688,10 @@ public class MainSceneController {
 			
 			
 			// might have to make it so this code is called again when the doctor / dept is changed after a date is selected
-			
-			previewSlots.getChildren().clear();
-			int i = 1;
-			for (TimeSlot tslot : generateAppointmentSlots(doctor.getValue(),dayPicker.getValue())) {
-				
-				// generate an element in the flowview of it!
-				
-				StackPane appt = new StackPane();
-				
-				appt.setMaxSize(100, 100);
-				appt.setMinSize(100,100);
-				
-				Rectangle rect = new Rectangle(95,95);
-				VBox info = new VBox();
-				
-				Label name = new Label("Slot " + i);
-				Label time = new Label(tslot.startTime.toLocalTime().toString() + "-" + tslot.endTime.toLocalTime().toString());
-				Label location = new Label(department.getValue().getValue()); 
-				
-				
-				// styling
-				Font bigText = new Font(17);
-				name.setFont(bigText);
-				
-
-				rect.setFill(Paint.valueOf("#8e7aff"));
-
-				
-				//rect.setFill(Paint.valueOf("#8e7aff"));
-				rect.setArcHeight(10);
-				rect.setArcWidth(10);
-				rect.setOpacity(0.45);
-				
-				info.getChildren().addAll(name, time, location);
-				info.setPadding(new Insets(10,0,0,10));
-				
-				appt.getChildren().addAll(rect, info);
-				
-				previewSlots.getChildren().add(appt);
-				
-				i++;
-				
-				
-				// code for making it possible to select a timeslot:
-				
-				// TEST THIS CODE ->  I'm not sure if it will make this for each specific timeslot or just the last one
-				appt.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				    @Override
-				    public void handle(MouseEvent mouseEvent) {
-				        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-				            if(mouseEvent.getClickCount() == 2){
-
-				            	String day = dayPicker.getValue().getMonth().toString().substring(0, 1) + dayPicker.getValue().getMonth().toString().toLowerCase().substring(1) + " "+ dayPicker.getValue().getDayOfMonth();
-				            	String time = tslot.startTime.toLocalTime().format(DateTimeFormatter.ISO_LOCAL_TIME) + " - " + tslot.endTime.toLocalTime().format(DateTimeFormatter.ISO_LOCAL_TIME) ;
-				            	
-				            	dayTimeslot.setText(day);
-				            	timeTimeslot.setText(time);
-				            	
-				            	selectedApptSlot = tslot;
-				            	
-				            	
-				            }
-				        }
-				    }
-				});
-				
-				
-				
-				
-			}
-			
+			initialSlotsLoaded = true;
+			refreshSlotPreview(previewSlots,department.getValue(),doctor.getValue(),dayPicker.getValue(), dayTimeslot, timeTimeslot);
+		
 		});
-		
-		
 		
 		
 		
@@ -710,6 +704,11 @@ public class MainSceneController {
 				
 				// add booking
 				GUI.datab.addAppointment(signedIn, doctor.getValue(), selectedApptSlot);
+				
+				// remove timeslot from preview
+				
+				previewSlots.getChildren().remove(selectedApptElement);
+				
 				refreshBookings();
 				
 			}
@@ -725,7 +724,7 @@ public class MainSceneController {
 		
 		pane.setTop(title);
 		pane.setLeft(internal);
-		pane.setCenter(previewSlots);
+		pane.setCenter(center);
 
 		internal.setPadding(new Insets(0,15,0,15));
 		internal.setSpacing(5);
@@ -767,6 +766,94 @@ public class MainSceneController {
 		return toRet;
 		
 	}
+	
+	
+	
+	
+	
+	
+	public void refreshSlotPreview(FlowPane previewSlots, Department dept,Doctor doctor, LocalDate day, Label dayLabel, Label timeLabel) {
+		
+		previewSlots.getChildren().clear();
+		int i = 1;
+		
+		
+		for (TimeSlot tslot : generateAppointmentSlots(doctor,day)) {
+			
+			// generate an element in the flowview of it!
+			
+			StackPane appt = new StackPane();
+			
+			appt.setMaxSize(100, 100);
+			appt.setMinSize(100,100);
+			
+			Rectangle rect = new Rectangle(95,95);
+			VBox info = new VBox();
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+			
+			Label name = new Label("Slot " + i);
+			Label startTime = new Label(tslot.startTime.toLocalTime().format(formatter) + " to");
+			Label endTime = new Label(tslot.endTime.toLocalTime().format(formatter));
+			Label location = new Label(dept.getValue()); 
+			
+			
+			// styling
+			Font bigText = new Font(17);
+			name.setFont(bigText);
+			
+
+			rect.setFill(Paint.valueOf("#8e7aff"));
+
+			
+			//rect.setFill(Paint.valueOf("#8e7aff"));
+			rect.setArcHeight(10);
+			rect.setArcWidth(10);
+			rect.setOpacity(0.45);
+			
+			info.getChildren().addAll(name, startTime, endTime, location);
+			info.setPadding(new Insets(10,0,0,10));
+			
+			appt.getChildren().addAll(rect, info);
+			
+			previewSlots.getChildren().add(appt);
+			
+			i++;
+			
+			
+			// code for making it possible to select a timeslot:
+			
+			// TEST THIS CODE ->  I'm not sure if it will make this for each specific timeslot or just the last one
+			appt.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			    @Override
+			    public void handle(MouseEvent mouseEvent) {
+			        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+			            if(mouseEvent.getClickCount() == 2){
+
+			            	
+			            	String dayString = day.getMonth().toString().substring(0, 1) + day.getMonth().toString().toLowerCase().substring(1) + " "+ day.getDayOfMonth();
+			            	String time = tslot.startTime.toLocalTime().format(formatter) + " - " + tslot.endTime.toLocalTime().format(formatter) ;
+			            	
+			            	dayLabel.setText(dayString);
+			            	timeLabel.setText(time);
+			            	
+			            	selectedApptSlot = tslot;
+			            	selectedApptElement = appt;
+			            	
+			            }
+			        }
+			    }
+			});
+			
+			
+			
+			
+		}
+
+	
+		
+	}
+	
 	
 	
 	

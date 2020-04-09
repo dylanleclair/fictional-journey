@@ -2,6 +2,7 @@ package application;
 
 import java.io.Serializable;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +62,8 @@ public class Booking implements Serializable {
 	@Override
 	public String toString() {
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+		
 		LocalDate dateOf = startTime.toLocalDate();
 		String monthDay = dateOf.getMonth().toString().substring(0, 1) + dateOf.getMonth().toString().substring(1).toLowerCase() + " " + dateOf.getDayOfMonth();
 		
@@ -77,7 +80,7 @@ public class Booking implements Serializable {
 		} // add logic to account for 13-24 to actually be regular times instead of military lol
 		
 		
-		return type + " on " + monthDay + " at " + startTime.toLocalTime().toString();
+		return type + " on " + monthDay + " at " + startTime.toLocalTime().format(formatter);
 	}
 	
 }
