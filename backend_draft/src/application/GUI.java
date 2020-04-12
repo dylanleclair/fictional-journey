@@ -78,32 +78,32 @@ public class GUI extends Application {
 		//Image image = new Image("logo.jpg", 400, 100, false, false);
 		//userSelection.add(new ImageView(image), 1, 0);
 		primaryStage.setTitle("Sukrum Technologies");
-		userSelection.setStyle("-fx-background-color: #373EBA");
+		userSelection.setStyle("-fx-background-color: #0f4d92");
 		userSelection.setAlignment(Pos.CENTER);
 		userSelection.setHgap(40);
 		userSelection.setVgap(5);
 		userSelection.setGridLinesVisible(false);
 		Scene scene = new Scene(userSelection,500,250);         
-		
+		scene.getStylesheets().add(GUI.class.getResource("StyleSheet.css").toExternalForm());
 		
 		
 		GridPane loginPane = new GridPane();
-		loginPane.setStyle("-fx-background-color: #373EBA");
+		loginPane.setStyle("-fx-background-color: #0f4d92");
 		loginPane.setAlignment(Pos.CENTER);
 		loginPane.setHgap(5);
 		loginPane.setVgap(5);
 		loginPane.setGridLinesVisible(false);
 		Scene scene1 = new Scene(loginPane, 500, 250);
-		
+		scene1.getStylesheets().add(GUI.class.getResource("StyleSheet.css").toExternalForm());
 		
 		GridPane loggedInPane = new GridPane();
-		loggedInPane.setStyle("-fx-background-color: #373EBA");
+		loggedInPane.setStyle("-fx-background-color: #0f4d92");
 		loggedInPane.setAlignment(Pos.CENTER);
 		loggedInPane.setHgap(5);
 		loggedInPane.setVgap(5);
 		loggedInPane.setGridLinesVisible(false);
 		Scene scene2 = new Scene(loggedInPane, 700, 700);
-		
+		scene2.getStylesheets().add(GUI.class.getResource("StyleSheet.css").toExternalForm());
                
 		TextField userName = new TextField();
 		userName.setPromptText("Username");
@@ -311,6 +311,7 @@ public class GUI extends Application {
 			Parent root = loader.load(getClass().getResourceAsStream("MainScene.FXML"));
 			
 			MainSceneController lol = (MainSceneController) loader.getController();
+			root.getStylesheets().add(GUI.class.getResource("StyleSheet.css").toExternalForm());
 			
 			mcontroller = lol;
 			
@@ -318,6 +319,7 @@ public class GUI extends Application {
 			lol.init();
 		
 			Scene scene = new Scene(root);
+			
 			return scene;
 			
 		} catch (IOException e) {

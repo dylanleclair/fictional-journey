@@ -288,10 +288,6 @@ public class MainSceneController {
 			
 			
 		}
-		
-    	System.out.println(lol.getRowCount()+ " " + lol.getColumnCount());
-    	
-    	
     	
     	 Label[] daylabels = {daySunday, dayMonday, dayTuesday,dayWednesday,dayThursday,dayFriday,daySaturday};
     	

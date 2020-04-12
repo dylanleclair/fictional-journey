@@ -1,0 +1,84 @@
+/**
+ * The styler class for the application
+ * 
+ * 
+ * 
+ * @author Fabian Pradipto
+ *
+ */
+
+.root {
+	-fx-background-color: #0f4d92;
+	-fx-font-family: Helvetica;
+}
+
+.name {
+	-fx-text-fill: #ffffff;
+}
+
+.label {
+	-fx-text-fill: #08284d;	
+}
+
+.Vbox {
+	-fx-background-color: #0f4d92;
+}
+
+.button{
+	-fx-background-color: linear-gradient(#ffffff, #cccccc);
+    -fx-padding: 5px;
+    -fx-border-color: #08284d;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 12px;
+    -fx-background-insets: 0;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,100) , 4,0,0,1 );
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(#1672d7, #1360b6);
+    -fx-padding: 5px;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #08284d;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+}
+
+.text-field{
+	-fx-background-color: linear-gradient(#ffffff, #cccccc);
+    -fx-border-color: #08284d;
+    -fx-padding: 3px;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-background-insets: 0;
+}
+
+.combo-box-base {
+	-fx-background-color: linear-gradient(#ffffff, #cccccc);
+    -fx-border-color: #08284d;
+    -fx-padding: 0px;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,100) , 4,0,0,1 );
+}
+
+.mainPanel {
+	-fx-background-color: linear-gradient(#ffffff, #cccccc); 
+	
+}
+
+.sidePanel{
+	-fx-background-color: #0f4d92; 
+}
+
+.sidePanelLabel {
+	-fx-text-fill: #ffffff;
+}
