@@ -59,6 +59,10 @@ public class MainSceneController {
 	private boolean initialSlotsLoaded;
 	private TimeSlot selectedTestSlot;
 	private StackPane selectedTestElement;
+	private Booking selectDelete;
+	
+	private BorderPane apptBooking;
+	private BorderPane cancelBooking;
 
 	
 	private StackPane selectedApptElement;
@@ -444,11 +448,13 @@ public class MainSceneController {
     		Patient s = (Patient) signedIn;
     		
     		Pane test = generateEditInfoPanel();
-    		BorderPane lol = generateBookAppointmentPanel();
+    		apptBooking = generateBookAppointmentPanel();
     		BorderPane t = generateBookTestPanel(s);
+    		cancelBooking = generateCancelBookingPanel();
     		manager.getChildren().add(test);
-    		manager.getChildren().add(lol);
+    		manager.getChildren().add(apptBooking);
     		manager.getChildren().add(t);
+    		manager.getChildren().add(cancelBooking);
     	
     		
     	}
@@ -755,6 +761,8 @@ public class MainSceneController {
 				previewSlots.getChildren().remove(selectedApptElement);
 				
 				refreshBookings();
+				
+				cancelBooking = generateCancelBookingPanel();
 				
 			}
 			// create the appointment using the database function for it using data from fields
@@ -1863,6 +1871,121 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 		
 	}
 	
+	
+	
+	public BorderPane generateCancelBookingPanel() {
+		
+		
+		BorderPane canvas = new BorderPane();
+		
+		// outer components
+		
+		Label title = new Label("Cancel a Booking");
+		title.setFont(new Font(19));
+		
+		
+		VBox internal = new VBox(8);
+		
+		// Internal components
+		
+		Label yourBookings = new Label("Your bookings:");
+			
+		ListView<Booking> book = new ListView<Booking>();
+		book.setMaxHeight(200);
+		book.setItems(FXCollections.observableArrayList(GUI.datab.getBookings(signedIn)));
+		
+		Label areYouSure = new Label("Are you sure you want to delete this booking?");
+		
+		Label bookingDetails = new Label();
+		
+		Button confirm = new Button("Confirm");
+		
+		
+		internal.getChildren().addAll(yourBookings,book);
+		
+		// event handling logic
+		
+		book.setOnMouseClicked(e -> {
+			
+			Booking b = book.getSelectionModel().getSelectedItem();
+			
+			if (b != null) {
+				selectDelete = b;
+				bookingDetails.setText(selectDelete.toString());
+			}
+
+			
+			if (!internal.getChildren().contains(areYouSure) && !book.getSelectionModel().isEmpty()) {
+				internal.getChildren().addAll(areYouSure,bookingDetails, confirm);
+			}
+			
+
+			
+		});
+		
+		confirm.setOnAction(e -> {
+			
+			if (book.getSelectionModel().getSelectedItem() != null) {
+				int index = book.getSelectionModel().getSelectedIndex();
+				int bookingID = signedIn.bookingIDs.get(index);
+				signedIn.bookingIDs.remove((Object) bookingID);
+				
+				
+				Booking b = GUI.datab.bookings.get(bookingID);
+				String typeOf = b.getClass().getName().substring(12);
+				
+				if (typeOf.contentEquals("Appointment")) {
+				Appointment a = (Appointment) b;
+				
+				a.getDoctor().getBookingIDs().remove((Object) bookingID);
+				
+				}
+				
+
+				internal.getChildren().remove(areYouSure);
+				internal.getChildren().remove(bookingDetails);
+				internal.getChildren().remove(confirm);
+				
+				book.getSelectionModel().clearSelection();
+
+				
+				try {
+					
+					GUI.datab.saveData(Database.filepath);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+				bookings.setItems(GUI.datab.getBookings(signedIn));
+				book.setItems(FXCollections.observableList(GUI.datab.getBookings(signedIn)));
+				
+				apptBooking = generateBookAppointmentPanel();
+				
+			}
+			
+			// clear everything else
+			
+			
+		});
+		
+		
+		// alignment
+		title.setPadding(new Insets(15,0,5,15));
+		
+		canvas.setTop(title);
+		canvas.setCenter(internal);
+		
+		
+		internal.setPadding(new Insets(0,15,20,15));
+		internal.setSpacing(5);
+		
+		
+		
+		
+		return canvas;
+		
+		
+	}
 	
 	
 	

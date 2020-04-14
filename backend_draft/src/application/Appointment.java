@@ -30,6 +30,7 @@ public class Appointment extends Booking implements Serializable {
 	public Appointment(Doctor doctor, Patient patient, TimeSlot slot) {
 		super(doctor,slot);
 		this.patient = patient;
+		this.doctor = doctor;
 	}
 	
 	public Doctor getDoctor() {
