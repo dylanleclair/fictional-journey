@@ -135,10 +135,34 @@ public class Database implements Serializable {
 	
 		ObservableList<Booking> list = FXCollections.observableArrayList();
 		
+		System.out.println(user.getBookingIDs());
+		
 		for(Integer id : user.getBookingIDs()) {
 		
 
 			list.add(bookings.get(id));
+
+		
+		}	
+		
+		System.out.println(list);
+		return list;
+	}
+    
+	
+	public ObservableList<Booking> getFutureBookings (User user, LocalDate startDate) {
+		
+		ObservableList<Booking> list = FXCollections.observableArrayList();
+		
+		for(Integer id : user.getBookingIDs()) {
+		
+			Booking b = bookings.get(id);
+			
+			System.out.println(startDate.toString());
+			
+			if (b.startTime.toLocalDate().isAfter(startDate)) {
+				list.add(b);
+			}
 
 		
 		}	
@@ -160,7 +184,7 @@ public class Database implements Serializable {
 		
 		for(Integer id : user.getBookingIDs()) {
 			
-			
+			System.out.println(id);
 			
 			Booking booking = bookings.get(id);
 			LocalDateTime start = booking.startTime;
@@ -360,7 +384,7 @@ public class Database implements Serializable {
 	}
     
 	
-
+	
 	
 	
 	
