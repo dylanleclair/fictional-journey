@@ -61,6 +61,7 @@ public class MainSceneController {
 	private StackPane selectedTestElement;
 	private Booking selectDelete;
 	
+	private VBox manager = new VBox();
 	private BorderPane apptBooking;
 	private BorderPane cancelBooking;
 
@@ -412,7 +413,7 @@ public class MainSceneController {
     	
 
     	
-    	VBox manager = new VBox();
+    	
     	cscroll.setContent(manager);
     	
     	
@@ -451,10 +452,10 @@ public class MainSceneController {
     		apptBooking = generateBookAppointmentPanel();
     		BorderPane t = generateBookTestPanel(s);
     		cancelBooking = generateCancelBookingPanel();
-    		manager.getChildren().add(test);
-    		manager.getChildren().add(apptBooking);
-    		manager.getChildren().add(t);
-    		manager.getChildren().add(cancelBooking);
+    		manager.getChildren().add(test); // 0
+    		manager.getChildren().add(apptBooking); // 1
+    		manager.getChildren().add(t); // 2
+    		manager.getChildren().add(cancelBooking); // 3
     	
     		
     	}
@@ -762,7 +763,7 @@ public class MainSceneController {
 				
 				refreshBookings();
 				
-				cancelBooking = generateCancelBookingPanel();
+				manager.getChildren().set(3, generateCancelBookingPanel());
 				
 			}
 			// create the appointment using the database function for it using data from fields
@@ -1959,7 +1960,7 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 				bookings.setItems(GUI.datab.getBookings(signedIn));
 				book.setItems(FXCollections.observableList(GUI.datab.getBookings(signedIn)));
 				
-				apptBooking = generateBookAppointmentPanel();
+				manager.getChildren().set(1, generateBookAppointmentPanel()) ;
 				
 			}
 			
