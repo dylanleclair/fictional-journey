@@ -12,17 +12,5 @@ public class Admin extends User {
         super(name, email, phone, password);
     }
 
-    // modify database
-    public void addDoctor(Database data, Doctor doctor) {
-        data.doctors.add(doctor);
-    }
-
-    public void addPatient(Database data, Patient patient) {
-        data.patients.add(patient);
-    }
-
-    public void addAdmin(Database data, Admin admin) {
-        data.administrators.add(admin);
-    }
 
 }

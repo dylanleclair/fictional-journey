@@ -12,16 +12,24 @@ public class Patient extends User {
 
 	public Patient(String name, String email, String phone, String password) {
 		super(name, email, phone, password);
+		this.tests = new ArrayList<TestRecommendation>();
 	}
 
 
-	
+	public void recommendTest (TestRecommendation tr) {
+		tests.add(tr);
+	}
+
+
+	public ArrayList<TestRecommendation> getTests() {
+		return tests;
+	}
+
+
+	public void setTests(ArrayList<TestRecommendation> tests) {
+		this.tests = tests;
+	}
 
 	
-	
-	// if we want to be super extra we could hash appointments to an ID so that we can modify them 
-	
-	// I think we can save the patients records in a file / files that can be a subdirectory.
-	// bookings will be loaded and then differentiated
-	
+
 }

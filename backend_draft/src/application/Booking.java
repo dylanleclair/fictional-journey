@@ -2,6 +2,7 @@ package application;
 
 import java.io.Serializable;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +15,7 @@ public class Booking implements Serializable {
 	protected LocalDateTime startTime; // the date and time of the appointment
 	protected LocalDateTime endTime;
 	protected Department location; 
-	protected boolean available;
-	
+
 	/**
 	 * Constructor for meetings that are 25 min long.
 	 * @param startTime
@@ -23,7 +23,6 @@ public class Booking implements Serializable {
 	 */
 	public Booking(LocalDateTime startTime, Department location) {
 		
-		this.available = true;
 		this.startTime = startTime;
 		this.endTime = startTime.plusMinutes(25);
 		this.location = location;
@@ -36,7 +35,6 @@ public class Booking implements Serializable {
 	}
 	
 	public Booking(String lol) {
-		this.available = false;
 		
 		LocalDateTime test = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0));
 		this.startTime = test;
@@ -50,16 +48,22 @@ public class Booking implements Serializable {
 	 * @param slot - a TimeSlot to retreive the start and end times from. 
 	 */
 	public Booking(Doctor doctor, TimeSlot slot) {
-		this.available = false;
 		this.startTime = slot.getStartTime();
 		this.endTime = slot.getEndTime();
 		this.location = doctor.department;
+	}
+	
+	public Booking( TimeSlot slot) {
+		this.startTime = slot.getStartTime();
+		this.endTime = slot.getEndTime();
 	}
 	
 	
 
 	@Override
 	public String toString() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 		
 		LocalDate dateOf = startTime.toLocalDate();
 		String monthDay = dateOf.getMonth().toString().substring(0, 1) + dateOf.getMonth().toString().substring(1).toLowerCase() + " " + dateOf.getDayOfMonth();
@@ -77,7 +81,7 @@ public class Booking implements Serializable {
 		} // add logic to account for 13-24 to actually be regular times instead of military lol
 		
 		
-		return type + " on " + monthDay + " at " + startTime.toLocalTime().toString();
+		return type + " on " + monthDay + " at " + startTime.toLocalTime().format(formatter);
 	}
 	
 }

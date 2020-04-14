@@ -24,6 +24,7 @@ public enum Department {
 	OPHTALMOLOGY("Ophtalmology"),
 	ORTHOPEDICS("Orthopedics"),
 	PHYSIOTHERAPY("Physiotherapy"),
+	DIAGNOSTICS("Diagnostics"),
 	TBA("Other");
 	
 	
@@ -47,6 +48,10 @@ public enum Department {
     }
     
     public String getValue() {
+    	return this.value;
+    }
+    
+    public String toString() {
     	return this.value;
     }
 	
