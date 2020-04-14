@@ -8,6 +8,9 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,9 +29,15 @@ import javafx.scene.Parent;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
@@ -59,7 +68,7 @@ public class GUI extends Application {
     boolean credentialsMatch = false;
 
 
-    Roles selectedRole;
+    static Roles selectedRole;
     
     
 	@Override
@@ -74,15 +83,15 @@ public class GUI extends Application {
 		Stage window = primaryStage;
 		window.setResizable(false);
 		
-		GridPane userSelection = new GridPane();
+		BorderPane userSelection = new BorderPane();
 		//Image image = new Image("logo.jpg", 400, 100, false, false);
 		//userSelection.add(new ImageView(image), 1, 0);
-		primaryStage.setTitle("Sukrum Technologies");
+		primaryStage.setTitle("Sukrum Hospital Management System");
 		userSelection.setStyle("-fx-background-color: #373EBA");
-		userSelection.setAlignment(Pos.CENTER);
-		userSelection.setHgap(40);
-		userSelection.setVgap(5);
-		userSelection.setGridLinesVisible(false);
+		//userSelection.setAlignment(Pos.CENTER);
+		//userSelection.setHgap(40);
+		//userSelection.setVgap(5);
+		//userSelection.setGridLinesVisible(false);
 		Scene scene = new Scene(userSelection,500,250);         
 		
 		
@@ -256,9 +265,37 @@ public class GUI extends Application {
 			selectedRole = Roles.PATIENT;
 		});
 
-		userSelection.add(newButton0, 0,1);
-		userSelection.add(newButton1, 1,1);
-		userSelection.add(newButton2, 2,1);
+		
+		Button registerButton = new Button("New patient? Register here.");
+		
+		registerButton.setPadding(new Insets(5,5,5,5));
+		
+		registerButton.setOnAction(e -> {
+			
+			
+			window.setScene(new Scene(generateRegistrationPanel(scene, window),765,360));
+		});
+		
+		
+		
+		
+		HBox roleSelect = new HBox(30);
+		
+		roleSelect.setPadding(new Insets(80,0,0,70));
+		
+		
+		roleSelect.getChildren().add(newButton0);
+		roleSelect.getChildren().add(newButton1);
+		roleSelect.getChildren().add(newButton2);
+		
+
+		userSelection.setCenter(roleSelect);
+		userSelection.setBottom(registerButton);
+		
+		
+		BorderPane.setMargin(registerButton, new Insets(0,0,20,0) );
+		BorderPane.setAlignment(roleSelect, Pos.CENTER);
+		BorderPane.setAlignment(registerButton, Pos.CENTER);
 		
 		window.setScene(scene);
 		window.show();
@@ -397,5 +434,126 @@ public class GUI extends Application {
 		
 	}
 
+	
+	/**
+	 * TODO: Integrate a register button in the main screen that will lead you to this!
+	 * @return a Pane (BorderPane, actually) that asks for registration data & ties to the database
+	 */
+public Pane generateRegistrationPanel (Scene initialScene, Stage window) {
+
+		
+		BorderPane canvas = new BorderPane();
+		
+		VBox internal = new VBox();
+		
+		internal.setMaxWidth(760);
+		internal.setMinWidth(760);
+		
+		internal.setMinHeight(300);
+		
+		Label title = new Label("Submit a Registration Request");
+		title.setFont(new Font(19));
+		
+
+		
+		// Build the labels and textfields for their corresponding thing
+	
+		Label prompt = new Label("Please enter your information below:");
+		prompt.setFont(new Font(16));
+		
+		
+		Label nameTitle = new Label("Enter your name:");
+		Label emailTitle = new Label("Enter your email:");
+		Label phoneTitle = new Label("Enter your phone number:");
+		Label passTitle = new Label("Choose a password:");
+		
+		TextField name = new TextField();
+		TextField email = new TextField();
+		TextField phone = new TextField();
+		PasswordField password = new PasswordField();
+
+		Button submit = new Button("Submit");
+		
+		
+		// Add these all to the VBox
+		
+		internal.getChildren().addAll(prompt,nameTitle,name,emailTitle,email,phoneTitle,phone,passTitle,password,submit);
+		
+		
+		// Set prompt text
+		
+		name.setPromptText("Name");
+		email.setPromptText("Email");
+		phone.setPromptText("Phone Number");
+		password.setPromptText("Password");
+		
+		
+		
+		submit.setOnAction(e -> {
+			// read entered data
+			
+			String inputName,inputEmail,inputPhone,inputPass;
+			inputName = name.getText();
+			inputEmail = name.getText();
+			inputPhone = phone.getText();
+			inputPass = password.getText();
+			
+			// create a registration request
+			
+			PendingUser newReg = null;
+			
+			// Make sure things are entered.
+			if (inputName.length() > 0 && inputEmail.length() > 0 && inputPhone.length() > 0 && inputPass.length() > 0) {
+				newReg = new PendingUser(inputName,inputEmail,inputPhone,inputPass);
+			} else {
+				prompt.setText("Looks like you left something blank! Please fix it up!");
+			}
+		
+			
+			// add to database
+			
+			if (newReg != null) {
+				try {
+					GUI.datab.register(newReg);
+					
+					// clear the ui
+					internal.getChildren().clear();
+					title.setText("Thanks for signing up! Please try to sign in after a few days!");
+					
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+
+		});
+	
+		
+		Button back = new Button("Back");
+		internal.getChildren().add(back);
+	
+		back.setOnAction(e-> {
+			
+			window.setScene(initialScene);
+			
+		});
+		
+		// Styling
+		
+		title.setPadding(new Insets(15,0,5,15));
+		
+		canvas.setTop(title);
+		canvas.setCenter(internal);
+		
+		
+		internal.setPadding(new Insets(0,15,0,15));
+		internal.setSpacing(5);
+		
+		VBox.setMargin(submit, new Insets(8,0,0,0));
+		
+		
+		return canvas;
+	}
+	
 	
 }

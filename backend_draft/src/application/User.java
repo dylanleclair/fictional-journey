@@ -27,6 +27,12 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 	}
+	
+	
+	public User() {
+	
+	}
+	
 
 	public String getName() {
 		return name;
@@ -61,7 +67,9 @@ public class User implements Serializable {
 	}
 
 	
-	
+	public String toString () {
+		return name; 
+	}
 	
 	
 }

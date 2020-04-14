@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,9 +10,13 @@ import javafx.collections.ObservableList;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 public class Database implements Serializable {
+	
+	static final String filepath = "data/system.dat"; 
+	
     /**
 	 * 
 	 */
@@ -19,6 +24,7 @@ public class Database implements Serializable {
 	ArrayList<Admin> administrators;
     ArrayList<Doctor> doctors;
     ArrayList<Patient> patients;
+    ArrayList<PendingUser> pendingRegistrations;
     HashMap<Integer,Booking> bookings;
     int systemBookingCount;
 
@@ -27,6 +33,7 @@ public class Database implements Serializable {
         this.administrators = new ArrayList<Admin>();
         this.doctors = new ArrayList<Doctor>();
         this.patients = new ArrayList<Patient>();
+        this.pendingRegistrations = new ArrayList<PendingUser>();
         this.systemBookingCount = 0;
         this.bookings = new HashMap<Integer,Booking>();
     }
@@ -52,6 +59,7 @@ public class Database implements Serializable {
             this.administrators = in.administrators;
             this.doctors = in.doctors;
             this.patients = in.patients;
+            this.pendingRegistrations = in.pendingRegistrations;
             this.systemBookingCount = in.systemBookingCount;
             this.bookings = in.bookings;
             input.close();
@@ -176,10 +184,10 @@ public class Database implements Serializable {
      * @param patient
      * @param doctor
      */
-	public void addAppointment (User patient, Doctor doctor, TimeSlot slot) {
+	public void addAppointment (Patient patient, Doctor doctor, TimeSlot slot) {
 	
 	
-		bookings.put(systemBookingCount, new Appointment(doctor, slot));
+		bookings.put(systemBookingCount, new Appointment(doctor,patient, slot));
 		
 		doctor.bookingIDs.add(systemBookingCount);
 		patient.bookingIDs.add(systemBookingCount);
@@ -197,6 +205,23 @@ public class Database implements Serializable {
 		
 	}
 	
+	
+	public void addTest (Patient patient, TimeSlot slot, TestRecommendation tr) {
+		bookings.put(systemBookingCount, new Test(slot,tr.getType()));
+		patient.bookingIDs.add(systemBookingCount);
+		
+		systemBookingCount++;
+		
+		// after updating the system count and bookings, we should update the state of the database
+		
+		try {
+			this.saveData("data/system.dat");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 	public void addMeeting (User user) {
 		
@@ -223,6 +248,120 @@ public class Database implements Serializable {
 		
 	
 	}
+	
+	
+	
+	public ArrayList<Patient> getRecentPatients (User user, LocalDate date) {
+		
+		ArrayList<Patient> list = new ArrayList<Patient>();
+		
+		for(Integer id : user.getBookingIDs()) {
+			
+			Booking booking = bookings.get(id);
+			System.out.println(booking.getClass().getName());
+			if (booking.getClass().getName().contentEquals("application.Appointment")) {
+				Appointment b = (Appointment) booking;
+			
+				LocalDateTime start = booking.startTime;
+				LocalDate dayOf = start.toLocalDate();
+				
+				if (dayOf.isBefore(date.plusDays(14)) && dayOf.isAfter(date.minusDays(14))) {
+					
+					Patient p = b.getPatient();
+					
+					if (!list.contains(p)) {
+						list.add(p);
+					}
+				
+				}
+				
+			}
+			
+
+			
+
+		
+		}	
+
+		return list;
+	}
+	
+	
+	
+	public ArrayList<TimeSlot> genTimeSlots(LocalDate day) {
+		
+		ArrayList<TimeSlot> openSlots = new ArrayList<TimeSlot>();
+
+		
+		int[][] testHours =  {{8,16}};
+			
+			for (int[] range : testHours) {
+				
+				
+				LocalTime start = LocalTime.of(range[0], 0);
+				LocalTime end = LocalTime.of(range[1], 0);
+				
+				while(start.isBefore(end)) {
+					
+					LocalDateTime slotTime = LocalDateTime.of(day, start);
+					
+					openSlots.add(new TimeSlot(slotTime));
+					slotTime = slotTime.plusMinutes(30);
+					
+					openSlots.add(new TimeSlot(slotTime));
+					slotTime = slotTime.plusMinutes(30);
+					
+					start = start.plusHours(1);
+					
+					
+				}
+		
+		
+			
+		}
+		
+		return openSlots;
+		
+	}
+	
+	public ArrayList<Booking> getTestBookings(LocalDate day) {
+		
+		
+		ArrayList<Booking> toRet = new ArrayList<Booking>();
+		
+		for (Map.Entry<Integer,Booking> mapElement : bookings.entrySet()) {
+			
+			if (mapElement.getValue().getClass().getName().substring(12).contentEquals("Test")) {
+				Booking b = mapElement.getValue();
+				if (day.equals(b.startTime.toLocalDate())) {
+					toRet.add(b);
+				}
+				
+			}
+			
+		}
+		return toRet;
+		
+		
+	}
+	
+	
+	/**
+	 * Adds a pending registration to the database
+	 * @param r the Registration to add to the database
+	 * @throws IOException if the database fails to save with the addition of this, this exception is thrown.
+	 */
+	public void register(PendingUser r) throws IOException {
+		
+		pendingRegistrations.add(r);
+		
+		saveData("data/system.dat");
+		
+	}
+    
+	
+
+	
 	
 	
 }

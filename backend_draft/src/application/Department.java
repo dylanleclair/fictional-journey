@@ -24,6 +24,7 @@ public enum Department {
 	OPHTALMOLOGY("Ophtalmology"),
 	ORTHOPEDICS("Orthopedics"),
 	PHYSIOTHERAPY("Physiotherapy"),
+	DIAGNOSTICS("Diagnostics"),
 	TBA("Other");
 	
 	

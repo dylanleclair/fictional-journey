@@ -2,7 +2,7 @@ package application;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,7 +11,10 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,7 +25,7 @@ import javafx.collections.ObservableList;
 	int[][] appointmentHours;
 	ArrayList<TimeSlot> openAppointments; // generated from appointmentHours and daysWorkWeek
 	Department department;
-    
+    List<Boolean> workingDays = new ArrayList<Boolean>(Arrays.asList(new Boolean[7]));
     
     
   // constructors - update these
@@ -74,7 +77,7 @@ public Doctor(int[][] apptHours, Department dept, String name, String email, Str
 		appointmentHours = apptHours;
 		department = dept;
 		//openAppointments = generateTimeSlots(this);
-
+		Collections.fill(workingDays, Boolean.TRUE);
 	}
 	
 
@@ -134,26 +137,39 @@ public Doctor(int[][] apptHours, Department dept, String name, String email, Str
 		
 		ArrayList<TimeSlot> openSlots = new ArrayList<TimeSlot>();
 		
-		for (int[] range : this.appointmentHours) {
+
+		int lol = day.getDayOfWeek().getValue();
+		boolean condition = false;
+		if (lol == 7) {
+			condition = workingDays.get(0);
+		} else {
+			condition = workingDays.get(lol);
+		}
+		
+		if (condition) {
 			
-			
-			LocalTime start = LocalTime.of(range[0], 0);
-			LocalTime end = LocalTime.of(range[1], 0);
-			
-			while(start.isBefore(end)) {
-				
-				LocalDateTime slotTime = LocalDateTime.of(day, start);
-				
-				openSlots.add(new TimeSlot(slotTime));
-				slotTime = slotTime.plusMinutes(30);
-				
-				openSlots.add(new TimeSlot(slotTime));
-				slotTime = slotTime.plusMinutes(30);
-				
-				start = start.plusHours(1);
+			for (int[] range : this.appointmentHours) {
 				
 				
-			}
+				LocalTime start = LocalTime.of(range[0], 0);
+				LocalTime end = LocalTime.of(range[1], 0);
+				
+				while(start.isBefore(end)) {
+					
+					LocalDateTime slotTime = LocalDateTime.of(day, start);
+					
+					openSlots.add(new TimeSlot(slotTime));
+					slotTime = slotTime.plusMinutes(30);
+					
+					openSlots.add(new TimeSlot(slotTime));
+					slotTime = slotTime.plusMinutes(30);
+					
+					start = start.plusHours(1);
+					
+					
+				}
+		}
+		
 			
 		}
 		
@@ -161,6 +177,12 @@ public Doctor(int[][] apptHours, Department dept, String name, String email, Str
 		
 	}
 	
+	
+	
+	public void setWorkingDays (List<Boolean> list) {
+
+		this.workingDays = list;
+	}
 	
 	public String toString() {
 		return name;
