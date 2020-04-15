@@ -412,7 +412,7 @@ public class MainSceneController {
     	ScrollPane cscroll = new ScrollPane();
     	
 
-    	
+    	manager.getChildren().clear();
     	
     	cscroll.setContent(manager);
     	
@@ -1642,11 +1642,8 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 		
 		if (role == Roles.PENDING) {
 			
-			
-			
-			
-			Button approve = new Button("Approve");
-			Button deny = new Button("Deny");
+			Button approve = new Button("Approve patient");
+			Button deny = new Button("Deny patient");
 			
 			// set actions
 			
@@ -1666,23 +1663,33 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 					e1.printStackTrace();
 				}
 				
+				GUI.datab.pendingRegistrations.remove(user);
+				refreshListView(role,lv);
+				
 			});
 			
 			deny.setOnAction(e->{
 				GUI.datab.pendingRegistrations.remove(user);
-				refreshListView(role, lv);
+				refreshListView(role,lv);
+			
 			});
+		
 			
 			internal.getChildren().addAll(approve, deny);
 			
-			title.setPadding(new Insets(15,0,20,15));
+
+			// Styling
+			
+			title.setPadding(new Insets(15,0,5,15));
+
 			
 			canvas.setTop(title);
 			canvas.setCenter(internal);
 			
-			
-			internal.setPadding(new Insets(0,15,0,15));
+
+			internal.setPadding(new Insets(0,15,20,15));
 			internal.setSpacing(5);
+
 			
 		} else {		
 			
