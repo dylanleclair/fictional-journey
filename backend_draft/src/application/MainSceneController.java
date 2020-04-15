@@ -1605,7 +1605,7 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 			}  else if (role == Roles.ADMIN) {
 				GUI.datab.administrators.remove(user);
 			} else if (role == Roles.PENDING ) {
-				//GUI.datab.pendingRegistrations.remove(user);
+				GUI.datab.pendingRegistrations.remove(user);
 			}
 			
 			try {
@@ -1658,6 +1658,8 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 				// add the patient to the database
 				
 				GUI.datab.patients.add(toAdd);
+				GUI.datab.pendingRegistrations.remove(user);
+				refreshListView(role, lv);
 				try {
 					GUI.datab.saveData(Database.filepath);
 				} catch (IOException e1) {
@@ -1668,10 +1670,19 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 			
 			deny.setOnAction(e->{
 				GUI.datab.pendingRegistrations.remove(user);
+				refreshListView(role, lv);
 			});
 			
 			internal.getChildren().addAll(approve, deny);
 			
+			title.setPadding(new Insets(15,0,20,15));
+			
+			canvas.setTop(title);
+			canvas.setCenter(internal);
+			
+			
+			internal.setPadding(new Insets(0,15,0,15));
+			internal.setSpacing(5);
 			
 		} else {		
 			
