@@ -1,7 +1,5 @@
 # fictional-journey
 
-# Note - this is deprecated as of April 8th, and will be updated before final submission.
-
 A repository for the SENG 300 Group Project
 
 To run our code, you will need to first clone the repository from GitHub. 
@@ -33,27 +31,37 @@ At this point you should be able to run the project.
 
 To see it in all of it's glory (not a whole lot at the moment), you will then want to select Doctor and sign is as me (Dylan L):
 
-Username (top): "lol@fake.com"
-Password (bottom): "pog"
+Username (top): "dylan"
+Password (bottom): "1"
 
 Once you click Login, it will take you to the home GUI for a doctor. 
 
 Additionally, you may sign in as a patient by selecting Patient, and using the following credentials:
 
-Username (top): "fake@sukrum.com"
-Password (bottom): "lmao"
+Username (top): "adam"
+Password (bottom): "1"
 
-This will log you into a patient named John Doe.
 
-As you can see, there is a scheduled meeting in the list of appointments for both me and John Doe, since I added an experimental booking to the database manually. 
+This will log you into a patient named Adam.
 
+For a doctor, you can sign into: 
+
+Username: "john"
+Password: "1"
+
+This will log you into a Doctor named John.
+
+You can book tests and do other data operations by going into the control panel in the bottom 
 Tests and other bookings attributed to the user would show up in either of the lists. 
+
+There are some doctors in physiotherapy, nutrition and family to book appointments with.
+
+Doctors can recommend tests to patients they have helped or will help in the past/future 2 months.
 
 For now, that's really all the functionality we have. In the final iteration, we intend to make appointments and tests bookable from the GUI, and implement the tableview to actually display appointments and other bookings (along with the other items in our product backlog). 
 
-To create additional users and such, you can go into the Database java file and play around with initializeDatabase(). You can run this class's main to write your changes to the database, before going back into GUI and logging in as a user to see what you changed.
+To create additional users and such, you can go into the Admin control panel and use the GUI elements within it to create Doctors, etc as shown in our video.
 
-While it does not appear to be a whole lot right now (we have not yet implemented a GUI for Admins), we have created a strong foundation for our project and require a bit more time to implement the necessary backend features & integration into the UI - which will be completed by the final submission if all goes according to plan.
 
 Thank you for reviewing our project! 
 
