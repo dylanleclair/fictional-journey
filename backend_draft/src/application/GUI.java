@@ -495,7 +495,7 @@ public Pane generateRegistrationPanel (Scene initialScene, Stage window) {
 			
 			String inputName,inputEmail,inputPhone,inputPass;
 			inputName = name.getText();
-			inputEmail = name.getText();
+			inputEmail = email.getText();
 			inputPhone = phone.getText();
 			inputPass = password.getText();
 			

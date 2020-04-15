@@ -439,7 +439,7 @@ public class MainSceneController {
     		
     	// add doctor/staff elements	
     		
-    		manager.getChildren().addAll(generateEditInfoPanel(), generateTestRecommendingPanel());
+    		manager.getChildren().addAll(generateEditInfoPanel(), generateTestRecommendingPanel(), generateCancelBookingPanel());
     	
     	} else if (typeOfSignedIn.contentEquals("Patient")) {
     		
@@ -1957,7 +1957,7 @@ public BorderPane generateEditInfoAdminPanel (User user, Roles role, Action acti
 				Appointment a = (Appointment) b;
 				
 				a.getDoctor().getBookingIDs().remove((Object) bookingID);
-				
+				a.getPatient().getBookingIDs().remove((Object) bookingID);
 				}
 				
 
